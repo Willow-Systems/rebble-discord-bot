@@ -3,7 +3,7 @@ const config = require("./config.json")
 function moderateMessage(message, messageID, userID, channelID) {
 
   //Disallow invite links
-  if (message.includes("discord.gg")) {
+  if (message.includes("discord.gg") && ! message.includes("aRUAYFN")) {
     deleteMessage(channelID, messageID, userID, message, "Sent message containg a server invite link")
     utils.sendMessage("<@" + userID + "> - Your previous message has been removed because it contained a server invite link. Please don't post those here.", channelID, userID)
   }
