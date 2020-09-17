@@ -350,7 +350,8 @@
       "requirements.txt"
     ],
     "keywords": [
-      ["requirements.txt"]
+      ["requirementstxt"],
+      ["requirements"]
     ],
     "summary": "finding an SDK resource mirror",
     "title": "Requirements.txt failure",
