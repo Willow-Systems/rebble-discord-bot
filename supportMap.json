@@ -343,5 +343,37 @@
       {"name": "Picture Walkthrough:", "value": "https://imgur.com/gallery/50Q7JXx"}
     ],
     "customicon": "https://willow.systems/pebble/bot/tearing.png"
+  },
+  {
+    "supportcodes": [
+      "requirements",
+      "requirements.txt"
+    ],
+    "keywords": [
+      ["requirements.txt"]
+    ],
+    "summary": "finding an SDK resource mirror",
+    "title": "Requirements.txt failure",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "During the SDK install process, the step `pip install -r requirements.txt` fails.",
+    "fix": "Edit the file requirements.txt and replace the URL on the last line with https://github.com/Willow-Systems/vagrant-pebble-sdk/raw/master/pypkjs-1.0.6.tar.gz. Save the file and retry the command that failed.",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png"
+  },
+  {
+    "supportcodes": [
+      "nositepackages"
+    ],
+    "keywords": [
+      ["nositepackages"],
+      ["no", "site", "packages"]
+    ],
+    "summary": "getting past the --no-site-packages error",
+    "title": "--no-site-packages error message",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "During the SDK install process, you get an error because of the flag `--no-site-packages`",
+    "fix": "Repeat the failed command, but omit the --no-site-packages flag. It's deprecated so you don't actually need it.",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png"
   }
 ]
