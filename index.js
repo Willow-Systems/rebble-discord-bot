@@ -366,7 +366,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     //Proactive help
     //This is where if we see a new user ask a question in #rebble-help, we introduce outselves
-    if (userauth.getProactiveChannels(config).includes(channelID.toString()) && ! haveISeenUserBefore(userID)) {
+    if (userauth.getProactiveChannels(config).includes(channelID.toString()) && ! haveISeenUserBefore(userID) && message.includes("?")) {
       botReply("Hey <@" + userID + ">. I've not seen you around here before. If you need some help, try starting your question with a leading `?` and I'll do my best to answer it. E.g. `? How do I setup Rebble?`", channelID, userID);
       recordSeenUser(userID);
     }
