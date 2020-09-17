@@ -1,0 +1,347 @@
+[
+  {
+    "supportcodes": [
+      "lockersync",
+      "lockerdesync"
+    ],
+    "keywords": [
+      ["locker", "sync"],
+      ["cant", "download"],
+      ["installed", "store"]
+    ],
+    "summary": "locker sync/download issues",
+    "title": "Locker Sync Issue",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Apps may appear installed in the Rebble store, but aren't actually in your locker. Your phone is out of sync with the servers",
+    "fix": "",
+    "fix": "Firstly, try rebooting your phone. If that doesn't work, see https://old.reddit.com/r/pebble/comments/ie51z2/slug/g2dk1mz",
+    "customicon": "https://willow.systems/pebble/bot/sync.png"
+  },
+  {
+    "supportcodes": [
+      "setup",
+      "firsttime",
+      "howto"
+    ],
+    "keywords": [
+      ["setup"],
+      ["install"],
+      ["rebble"],
+      ["pebble", "app"]
+    ],
+    "summary": "Getting setup with Rebble",
+    "title": "Getting started",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You've not yet got setup with Rebble",
+    "fix": "",
+    "fixurl": "https://rebble.io/howto"
+  },
+  {
+    "supportcodes": [
+      "boot",
+      "boot.rebble.io"
+    ],
+    "keywords": [
+      ["boot"],
+      ["rerun"]
+    ],
+    "summary": "the boot process",
+    "title": "Running the boot process",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "The boot process is the step during setup where we tell the Pebble app to point to Rebble servers. Re-running this often solves issues.",
+    "fix": "Navigate to https://boot.rebble.io **on your phone**, follow the instructions."
+  },
+  {
+    "supportcodes": [
+      "cancelsub",
+      "cancelsubscription",
+      "unsub",
+      "unsubscribe"
+    ],
+    "keywords": [
+      ["cancel"],
+      ["unsubscribe"],
+      ["subscription"]
+    ],
+    "summary": "cancelling your Rebble subscription",
+    "title": "Cancelling your subscription",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Want to cancel your subscription? No problem.",
+    "fix": "Select 'Cancel subscription' at https://auth.rebble.io/account/. If you don't see that option, you aren't logged in with the correct account, or you don't have an active subscription.",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/deleted.png"
+  },
+  {
+    "supportcodes": [
+      "unrebble",
+      "removerebble"
+    ],
+    "keywords": [
+      ["remove"],
+      ["unrebble"],
+      ["undo"]
+    ],
+    "summary": "Resetting the Pebble app",
+    "title": "De-Rebble your Pebble app",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to switch the Pebble app back to pointing at the dead Pebble servers. For some reason.",
+    "fix": "Visit https://rebble.io/unrebble.html on you phone.",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/deleted.png"
+  },
+  {
+    "supportcodes": [
+      "appdownload",
+      "downloadapp",
+      "downloadpbw"
+    ],
+    "keywords": [
+      ["download", "app"],
+      ["download", "appstore"],
+      ["pbw"]
+    ],
+    "summary": "downloading an app as a file from the store",
+    "title": "Downloading a .pbw from the store",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to download the .pbw file for a Pebble app or watchface",
+    "fix": "Visit https://apps.rebble.io/?dev_settings=true in a browser. Find the app or face and select the new 'download .pbw' option at the bottom of the screen.",
+    "fixurl": ""
+  },
+  {
+    "supportcodes": [
+      "pbwinstall",
+      "sideload"
+    ],
+    "keywords": [
+      ["install", "app"],
+      ["pbw"],
+      ["side", "load"],
+      ["sideload"]
+    ],
+    "summary": "installing a .pbw to your watch",
+    "title": "Sideloading a .pbw to your watch",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to side load a .pbw file to your watch",
+    "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case using the Dropbox app or AmazeFileExplorer may work.",
+    "fixurl": ""
+  },
+  {
+    "supportcodes": [
+      "batteries",
+      "battery"
+    ],
+    "keywords": [
+      ["battery"],
+      ["batteries"]
+    ],
+    "summary": "battery replacements",
+    "title": "Replacing batteries",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Your Pebble's current batteries are dying, and you want to fit new ones",
+    "fix": "Batteries can be replaced on all models of Pebble. Not that it's harder on the PTR - you need a spot welder",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/battery.png",
+    "customfields": [
+      {"name": "IFixIt Batteries for Pebble:", "value": "https://www.ifixit.com/Search?query=pebble+battery"}
+    ]
+  },
+  {
+    "supportcodes": [
+      "weather",
+      "weatherfaces"
+    ],
+    "keywords": [
+      ["weather"]
+    ],
+    "summary": "weather watchfaces",
+    "title": "Weather",
+    "url": "https://docs.google.com/spreadsheets/d/1_Dw1TNBB2rrktDXpakR2QInLUqN1pPgV6zXb6f9r94g/edit#gid=0",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Weather timeline pins require a rebble subscription. Weather for watchfaces works independent of this. Watchfaces may or may not work depending on the API they use.",
+    "fix": "For a handy list of weather watchfaces confirmed to still be working, click the title of this message",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/sun.png"
+  },
+  {
+    "supportcodes": [
+      "sdk",
+      "sdkinstall",
+      "sdkinstallation"
+    ],
+    "keywords": [
+      ["sdk"],
+      ["install"],
+      ["writ", "app"]
+    ],
+    "summary": "installing the SDK",
+    "title": "Pebble SDK",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "There are many options for installing the SDK. For best results, a native install is suggested. There is also a docker image, as well as a full ubuntu-based VM. The SDK enables you to write watchfaces and apps in C or Javascript for all the pebble watches.",
+    "fix": "Want to write Pebble apps? Install the SDK. Ask in #app-dev for help!",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png",
+    "customfields": [
+      {"name": "SDK Installation Instructions (all platforms):", "value": "https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows/"},
+      {"name": "SDK Installation Script (Debian or WSL):", "value": "https://gist.github.com/zeevro/ce20d0d74a869d73119e9d1522b7caa7"},
+      {"name": "SDK Docker Image:", "value": "https://hub.docker.com/r/rebble/pebble-sdk"},
+      {"name": "Ubuntu Virtual Machine with SDK installed:", "value": "https://willow.systems/pebble/vm/"},
+      {"name": "Pebble SDK Documentation mirror", "value": "https://developer.rebble.io/developer.pebble.com/index.html"}
+    ]
+  },
+  {
+    "supportcodes": [
+      "ifttt",
+      "ifthisthenthat"
+    ],
+    "keywords": [
+      ["ifttt"],
+      ["ifthisthenthat"],
+      ["timeline"]
+    ],
+    "summary": "integrating IFTTT with Timeline",
+    "title": "If-This-Then-That Integration",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to integrate IFTTT with Rebble Timeline",
+    "fix": "",
+    "fixurl": "https://willow.systems/pebble/pin-generator/"
+  },
+  {
+    "supportcodes": [
+      "donate",
+      "donations"
+    ],
+    "keywords": [
+      ["donat"]
+    ],
+    "summary": "donating to Rebble",
+    "title": "Donations",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to donate to Rebble",
+    "fix": "Currently Rebble does not accept direct donations, as cashflow isn't the blocker. If you're set on contributing financially, perhaps sign up for a subscription. Thanks!",
+    "fixurl": "",
+    "customicon": "https://willow.systems/pebble/bot/heart.png"
+  },
+  {
+    "supportcodes": [
+      "submit",
+      "developerportal",
+      "devportal"
+    ],
+    "keywords": [
+      ["submit", "app"],
+      ["publish"],
+      ["app", "store"]
+    ],
+    "title": "Developer Portal",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You want to submit an app to the Rebble appstore",
+    "fixurl": "https://rebble.io/submit",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png"
+  },
+  {
+    "supportcodes": [
+      "android",
+      "androidapp"
+    ],
+    "keywords": [
+      ["download", "app"],
+      ["android"]
+    ],
+    "summary": "installing the Android app",
+    "title": "Android App Download",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "The Android app is no longer available on the Google Play Store. You can still sideload it.",
+    "fix": "Download the APK from https://www.apkmirror.com/apk/pebble-technology-corp/pebble/pebble-4-4-2-1405-62d45d7d7-endframe-release/pebble-4-4-2-1405-62d45d7d7-endframe-android-apk-download/download/",
+    "customicon": "https://willow.systems/pebble/bot/phone.png",
+    "customfields": [
+      {"name": "How to sideload an APK on Android:", "value": "See https://www.androidcentral.com/unknown-sources"}
+    ]
+  },
+  {
+    "supportcodes": [
+      "patchedapp",
+      "patchedandroidapp"
+    ],
+    "keywords": [
+      ["patched", "app"],
+      ["caller", "id"],
+      ["caller", "unknown"]
+    ],
+    "summary": "installing the patched Android app",
+    "title": "Patched Android App",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "If you're experiencing issues with call controls on Android 9+. This patched version of the app _may_ help",
+    "fix": "Download the APK from https://cdn.discordapp.com/attachments/461686541027377152/608089010136416256/modded.com.pebble.basalt.apk",
+    "customicon": "https://willow.systems/pebble/bot/phone.png"
+  },
+  {
+    "supportcodes": [
+      "iosapp"
+    ],
+    "keywords": [
+      ["ios", "install"],
+      ["ios", "app"]
+    ],
+    "summary": "downloading the ios app",
+    "title": "iOS App Download",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "The iOS app is still available on the appstore, so there's no problem there. Yet.",
+    "fix": "N/A",
+    "customicon": "https://willow.systems/pebble/bot/phone.png"
+  },
+  {
+    "supportcodes": [
+      "p2buttons",
+      "pebble2buttons",
+      "pebble2screen",
+      "p2screen"
+    ],
+    "keywords": [
+      ["buttons"],
+      ["screen", "replace"],
+      ["side"]
+    ],
+    "summary": "pebble 2 hardware issues",
+    "title": "Pebble 2 Hardware Issues",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Due to the Pebble 2's rubbery disposition, the buttons can degrade and break after a few years of use.",
+    "fix": "Prevention is easier than fixing, so try to push evenly across the surface of the buttons on the P2. Use the flat of your thumb as opposed to your fingernail.\n If you do get button issues there are several options available to you.",
+    "customfields": [
+      {"name": "Replacement Side Buttons", "value": "These 3d printed panels are the easiest fix. Just apply with some epoxy. https://www.shapeways.com/product/WBJBQUKJH/"},
+      {"name": "Replacement LCD + Top cover", "value": "These are OEM parts from the pebble production line. It includes a front assembly, which replaces the button membranes as well as the LCD. Can be a little fiddily to re-assemble, but it is the cleanest fix. https://www.cloudmedia.com/?product=pebble-case-white-with-screen"},
+      {"name": "3D Printed Replacement Case", "value": "This 3d printed replacement housing requires a sacraficial OG pebble for it's buttons. It'll combine that with your Pebble 2's guts to bring it back to life. Take extra care to not damage the screen upon reassembly. https://www.shapeways.com/product/YTMBDJWTH"}
+    ]
+  },
+  {
+    "supportcodes": [
+      "screentearing",
+      "tearing"
+    ],
+    "keywords": [
+      ["lines", "screen"],
+      ["screen", "damage"],
+      ["screen", "working"],
+      ["tear"]
+    ],
+    "summary": "screen tearing",
+    "title": "Screen Tearing",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "The OG and Steel are suceptible to screen tearing, where the screen gets black lines across it.",
+    "fix": "The error is caused by the 'Zebra Strip' screen connector coming loose. You can either replace the zebra strip entierly or, sometimes, placing some folded paper or foam behind the strip fixes the issue. You will have to take the back off your watch, but for the Steel especially, it's not particularly intricate job. The OGs come in two varients, 'screw-sealed' and 'glue-sealed'. The glue-sealed versions are much harder to open up.",
+    "customfields": [
+      {"name": "Video of the process:", "value": "https://www.youtube.com/watch?v=n7JBmktquUs"},
+      {"name": "Picture Walkthrough:", "value": "https://imgur.com/gallery/50Q7JXx"}
+    ],
+    "customicon": "https://willow.systems/pebble/bot/tearing.png"
+  }
+]
