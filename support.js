@@ -120,7 +120,7 @@ function suggestTopics(message) {
           title: article.title,
           code: article.supportcodes[0]
         })
-        continue
+        break
       }
 
     }
