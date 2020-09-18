@@ -367,7 +367,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     //Proactive help
     //This is where if we see a new user ask a question in #rebble-help, we introduce outselves
     if (userauth.getProactiveChannels(config).includes(channelID.toString()) && ! haveISeenUserBefore(userID) && message.includes("?")) {
-      botReply("Hey <@" + userID + ">. I've not seen you around here before. If you need some help, try starting your question with a leading `?` and I'll do my best to answer it. E.g. `? How do I setup Rebble?`", channelID, userID);
+      botReply(" ", userID, userID, {
+        color: parseInt("ff4700", 16),
+        thumbnail: {
+          url: "https://willow.systems/pebble/bot/bot.png",
+          height: 80,
+          width: 80
+        },
+        title: "Hi, @" + user,
+        description: "It looks like you've asked a question in <#461686541027377152>! I've not seen you around here before, so here are a few useful tips:",
+        fields: [
+          {name: "Need help?", value: "If nobody has answered your question yet, try asking me! **Start your question with a leading '?'** and I'll try to answer it. E.g. `? How do I setup rebble?`" },
+          {name: "Still confused?", value: "You can find a channel guide and role explanations in <#221397928592277504>, there are plenty of humans here who are super helpful." }
+        ],
+      });
       recordSeenUser(userID);
     }
 
@@ -381,7 +394,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
 
   //Fun
-  var binary = RegExp('^[01]+$')
+  var binary = RegExp('^[01 ]+$')
   if (binary.test(message) && message.length > 5) {
     botReply('01001100 01101111 01101110 01100111 00100000 01001100 01101001 01110110 01100101 00100000 01010000 01100101 01100010 01100010 01101100 01100101 00100001', channelID, userID)
   }
