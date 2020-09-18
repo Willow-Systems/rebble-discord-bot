@@ -30,13 +30,13 @@
       ["rebble"],
       ["pebble", "app"]
     ],
-    "summary": "Getting setup with Rebble",
+    "summary": "getting setup with Rebble",
     "title": "Getting started",
     "subtitle": "",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "You've not yet got setup with Rebble",
-    "fix": "",
-    "fixurl": "https://rebble.io/howto"
+    "fix": "Follow the instructions at https://rebble.io/howto. There's an APK download link there too in case you're on Android",
+    "fixurl": ""
   },
   {
     "supportcodes": [
