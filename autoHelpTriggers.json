@@ -1,7 +1,0 @@
-[
-  { keywords: ["locker", "sync"], func: suggestHelp("Locker Sync", "lockersync") },
-  { keywords: ["locker", "desync"], func: suggestHelp("Locker Sync", "lockersync") },
-  { keywords: ["apps", "sync"], func: suggestHelp("Locker Sync", "lockersync") },
-  { keywords: ["download", "apps"], func: suggestMultipleHelps([{"issue":"I want to manually download an app from the appstore", "cmd": "appdownload"},{"issue":"I can't download some apps. My app locker isn't syncing correctly.", "cmd": "lockersync"}]) },
-
-]
