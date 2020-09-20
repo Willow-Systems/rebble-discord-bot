@@ -2,7 +2,6 @@ var Discord = require('discord.io');
 var fs = require('fs');
 var wait = require('wait-sync');
 const auth = require("./auth.json");
-const kw = require("./keywords.js")
 const support = require("./support.js")
 const codes = require("./errorcodes.js")
 const moderator = require("./funsucker.js")
