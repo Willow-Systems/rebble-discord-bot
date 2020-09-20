@@ -5,7 +5,6 @@ const auth = require("./auth.json");
 const support = require("./support.js")
 const codes = require("./errorcodes.js")
 const moderator = require("./funsucker.js")
-var basic = require('./basic.js');
 var pbimg = require("./pblimg.js")
 var userauth = require("./roles.js")
 const config = require("./config.json");
