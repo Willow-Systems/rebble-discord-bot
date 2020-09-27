@@ -1,3 +1,17 @@
+const config = require("./config.json");
+var timeoutDuration = (config.hasOwnProperty("timeouts") && config.timeouts.hasOwnProperty("errorCodes")) ? parseInt(config.timeouts.errorCodes) : 3600
+//convert milliseconds to seconds
+timeoutDuration = timeoutDuration * 1000
+var lastTalked = {}
+
+function canTalkAbout(code) {
+  var now = new Date()
+  now = now.getTime()
+  var prevTime = (lastTalked.hasOwnProperty(code)) ? lastTalked[code] : (now - timeoutDuration - 1);
+  lastTalked[code] = now
+  return ((now - prevTime) > timeoutDuration)
+}
+
 var errorCodeLookup = {
   "504510": "fix1",
   "504511": "fix1",
@@ -7,7 +21,6 @@ var errorCodeLookup = {
   "504503": "fix3",
   "504504": "fix3",
   "504501": "fix4"
-
 }
 
 var fixes = {
@@ -50,6 +63,8 @@ var fixes = {
   }
 }
 
+
+
 function matchCode(message) {
   message = message.toLowerCase();
   message = message.replace(/fe/g,"");
@@ -66,7 +81,8 @@ function matchCode(message) {
         desc += "- " + step + "\n"
       })
 
-      return {
+      if (canTalkAbout(word)) {
+        return {
         color: parseInt("ff4700", 16),
         thumbnail: {
           url: img,
@@ -78,6 +94,7 @@ function matchCode(message) {
           {name: "Error Description:", value: fix.description},
           {name: "Suggested Fix:", value: desc}
         ]
+      }
       }
     }
   }
