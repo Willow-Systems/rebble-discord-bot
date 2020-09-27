@@ -275,6 +275,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   var messageID = evt.d.id
 
+  console.log(JSON.stringify(evt))
+
   //Get roles
   var roles = []
   if (evt.d.hasOwnProperty("member") && evt.d.member.hasOwnProperty("roles")) {
@@ -373,9 +375,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
           width: 80
         },
         title: "Hi, @" + user,
-        description: "It looks like you've asked a question in <#461686541027377152>! I've not seen you around here before, so here are a few useful tips:",
+        description: "I've not seen you around here before, welcome to the Rebble Alliance discord server. Here are a few useful tips:",
         fields: [
-          {name: "Need help?", value: "If nobody has answered your question yet, try asking me! **Start your question with a leading '?'** and I'll try to answer it. E.g. `? How do I setup rebble?`" },
+          {name: "Need help?", value: "If you have a question and nobody has answered yet, try asking me! **Start your question with a leading '?'** and I'll try to answer it. E.g. `? How do I setup rebble?`" },
           {name: "Still confused?", value: "You can find a channel guide and role explanations in <#221397928592277504>, there are plenty of humans here who are super helpful." }
         ],
       });
