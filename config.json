@@ -5,7 +5,7 @@
   ],
   "proactiveHelperChannels": {
     "pubclub": ["689195515983822900"],
-    "rebble": ["461686541027377152","717614764574113882"]
+    "rebble": ["461686541027377152"]
   },
   "moderationReportChannel": {
     "pubclub": ["689195515983822900"],
@@ -14,7 +14,7 @@
   "authorisationRoles": {
     "useAdminCommands": {
       "pubclub": ["689193020394176553"],
-      "rebble": ["287154396721315852"]
+      "rebble": ["287154396721315852","717614764574113882"]
     },
     "useIntrospection": {
       "pubclub": ["689193020394176553"],
