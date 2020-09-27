@@ -275,14 +275,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   var messageID = evt.d.id
 
-  console.log(JSON.stringify(evt))
-
   //Get roles
   var roles = []
-  if (evt.d.hasOwnProperty("member") && evt.d.member.hasOwnProperty("roles")) {
-    //DMs don't have roles
-    roles = evt.d.member.roles
+  if (evt.d.hasOwnProperty("member")) {
+
+    if (evt.d.member.hasOwnProperty("roles")) {
+      //DMs don't have roles
+      roles = evt.d.member.roles
+    }
+
+    //Store info for $joined
+    if (! settings.usersICareAbout.hasOwnProperty(userID)) { settings.usersICareAbout[userID] = {} }
+    settings.usersICareAbout[userID].joined  = (evt.d.member.hasOwnProperty("joined_at")) ? evt.d.member.joined_at : "Unknown"
+
   }
+
 
   //Ignore user?
   if (amIIgnoringUser(userID) && message.indexOf(".ignore") == -1) {
@@ -323,7 +330,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // Admin commands
-  if (message.substr(0,1) == "$") {
+  if (message.substr(0,1) == "$" && /on|off|help|save|joined.*/.test(message)) {
     if (! userauth.hasPermission(roles, "useAdminCommands")) {
       botReply("You do not have permission to do that", channelID, userID)
       return
@@ -341,9 +348,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       disabled = false
       botReply("I'm awake!", channelID, userID);
 
+    } else if (cmd == "joined") {
+      var userID = userTagToID(args[0])
+      if (userID == null || userID == "") {
+        botReply("Missing argument. Useage: $joined @user", channelID, userID);
+      } else {
+        if (settings.usersICareAbout.hasOwnProperty(userID) && settings.usersICareAbout[userID].hasOwnProperty("joined")) {
+          botReply("User join date: **" + settings.usersICareAbout[userID].joined.toString().split(".")[0].replace("T", " ") + "**", channelID, userID);
+        } else {
+          botReply("Unknown user or data not yet gathered.", channelID, userID);
+        }
+      }
+    } else if (cmd == "save") {
+      save();
+      botReply("It is now safe to turn off your computer", channelID, userID);
     } else if (cmd == "help") {
-      botReply("Adminstrator Commands:\n$off - Suspend Anne\n$on - Reanimate Anne\n$help - Show this dialogue", channelID, userID);
-
+      botReply("Adminstrator Commands:\n$off - Suspend Anne\n$on - Reanimate Anne\n$joined @user - Show the server join date for user\n$save - Save brain to disk\n$help - Show this dialogue", channelID, userID);
     }
   }
 
