@@ -351,7 +351,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     } else if (cmd == "joined") {
       var userID = userTagToID(args[0])
       if (userID == null || userID == "") {
-        botReply("Missing argument. Useage: $joined @user", channelID, userID);
+        botReply("Missing argument. Usage: $joined @user", channelID, userID);
       } else {
         if (settings.usersICareAbout.hasOwnProperty(userID) && settings.usersICareAbout[userID].hasOwnProperty("joined")) {
           botReply("User join date: **" + settings.usersICareAbout[userID].joined.toString().split(".")[0].replace("T", " ") + "**", channelID, userID);

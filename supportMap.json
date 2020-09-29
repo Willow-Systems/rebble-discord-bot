@@ -20,6 +20,24 @@
   },
   {
     "supportcodes": [
+      "iossms",
+      "iostext",
+      "iosmessages"
+    ],
+    "keywords": [
+      ["text", "notifications"],
+      ["sms", "notifications"],
+      ["messages", "notifications"]
+    ],
+    "summary": "SMS Notifications not appearing on watch",
+    "title": "SMS Notifications not appearing on watch",
+    "subtitle": "",
+    "lastupdated": "",
+    "description": "You get notifications for other apps, but not SMS messages on iOS",
+    "fix": "Ensure that your 'Messages' app settings match the following: https://i.imgur.com/h3ldsh9.png\n\nIf that doesn't fix it, follow the steps at https://pebble-help-legacy.rebble.io/help.getpebble.com/customer/portal/articles/1191239-setting-up-ios-notifications.html"
+  },
+  {
+    "supportcodes": [
       "setup",
       "firsttime",
       "howto"
