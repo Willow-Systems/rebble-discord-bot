@@ -52,4 +52,42 @@ function getModChannel() {
 
   return config.moderationReportChannel[serverID]
 }
+
+function warnPotentialImpersonate(userID) {
+  if (getModChannel() != null) {
+      utils.sendMessage(" ", getModChannel(), null, {
+        color: parseInt("ffc83c", 16),
+        thumbnail: {
+          url: "https://willow.systems/pebble/bot/bot.png",
+          height: 80,
+          width: 80
+        },
+        title: "Moderation Alert",
+        fields: [
+          {name: "User", value: "<@" + userID + ">"},
+          {name: "Reason for alert", value: "New user joined - Username potentially impersonating another user"},
+          {name: "Action taken", value: "None"}
+        ]
+      })
+  }
+}
+function notifyOfBan(bannedUsername) {
+  if (getModChannel() != null) {
+      utils.sendMessage(" ", getModChannel(), null, {
+        color: parseInt("ffc83c", 16),
+        thumbnail: {
+          url: "https://willow.systems/pebble/bot/bot.png",
+          height: 80,
+          width: 80
+        },
+        title: "Moderation Alert",
+        fields: [
+          {name: "Username", value: bannedUsername},
+          {name: "Reason for alert", value: "User has been banned"}
+        ]
+      })
+  }
+}
 module.exports.scan = moderateMessage
+module.exports.warnPotentialImpersonate = warnPotentialImpersonate
+module.exports.notifyOfBan = notifyOfBan

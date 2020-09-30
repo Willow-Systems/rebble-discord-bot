@@ -188,7 +188,7 @@ loadSaveData()
 pbimg.init(__dirname + "/icons")
 
 //Validate configuration
-validateConfig()
+validateConfig();
 
 //Bot functions. Magic happens in bot.on('message')
 bot = new Discord.Client({
@@ -341,13 +341,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     args = args.splice(1);
 
     if (cmd == "off") {
-      disabled = true
-      botReply("Entering sleep mode. I'll now only respond to the Wake command: `$on`.", channelID, userID);
-
+      if (userauth.hasPermission(roles, "switchOff")) {
+        disabled = true
+        botReply("Entering sleep mode. I'll now only respond to the Wake command: `$on`.", channelID, userID);
+      } else {
+        botReply("You do not have permission to do that", channelID, userID)
+        return
+      }
     } else if (cmd == "on") {
-      disabled = false
-      botReply("I'm awake!", channelID, userID);
-
+      if (userauth.hasPermission(roles, "switchOff")) {
+        disabled = false
+        botReply("I'm awake!", channelID, userID);
+      } else {
+        botReply("You do not have permission to do that", channelID, userID)
+        return
+      }
     } else if (cmd == "joined") {
       var userID = userTagToID(args[0])
       if (userID == null || userID == "") {
@@ -421,4 +429,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   recordSeenUser(userID);
 
+});
+bot.on('any', function(event) {
+  //Catch special events
+
+  //Eventually populate this from roles, but for now I cba
+  var protectedUsernames = ["crc32","ishotjr","josuha","will","will0","tation","astosia","stefanogerli","tertty","annedroid","sphinxy","itsthered","itsthered1","udsx"];
+
+
+  if (event.t == "GUILD_MEMBER_ADD") {
+    //New user has joined the server
+    var newuser = event.d.user.username;
+    newuser = newuser.toLowerCase().replace(/[!?.'")>\]]/g,"")
+    for (var i = 0; i < protectedUsernames.length; i++) {
+      console.log("Does " + newuser + " =~ " + protectedUsernames[i])
+      if (newuser == protectedUsernames[i]) {
+        moderator.warnPotentialImpersonate(event.d.user.id)
+        break
+      }
+    }
+
+  } else if (event.t == "GUILD_BAN_ADD") {
+    //User yeeted
+    moderator.notifyOfBan(event.d.user.username)
+  } else {
+    console.log(event)
+  }
 });
