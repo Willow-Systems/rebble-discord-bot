@@ -434,7 +434,7 @@ bot.on('any', function(event) {
   //Catch special events
 
   //Eventually populate this from roles, but for now I cba
-  var protectedUsernames = ["crc32","ishotjr","josuha","will","will0","tation","astosia","stefanogerli","tertty","annedroid","sphinxy","itsthered","itsthered1","udsx"];
+  var protectedUsernames = ["katharineberry","bradtgmurray","kat","liammcloughlin","meiguro","orviwan","crc32","ishotjr","josuha","will","will0","tation","astosia","stefanogerli","tertty","annedroid","sphinxy","itsthered","itsthered1","udsx"];
 
 
   if (event.t == "GUILD_MEMBER_ADD") {
