@@ -341,13 +341,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     args = args.splice(1);
 
     if (cmd == "off") {
-      disabled = true
-      botReply("Entering sleep mode. I'll now only respond to the Wake command: `$on`.", channelID, userID);
-
+      if (userauth.hasPermission(roles, "switchOff")) {
+        disabled = true
+        botReply("Entering sleep mode. I'll now only respond to the Wake command: `$on`.", channelID, userID);
+      } else {
+        botReply("You do not have permission to do that", channelID, userID)
+        return
+      }
     } else if (cmd == "on") {
-      disabled = false
-      botReply("I'm awake!", channelID, userID);
-
+      if (userauth.hasPermission(roles, "switchOff")) {
+        disabled = false
+        botReply("I'm awake!", channelID, userID);
+      } else {
+        botReply("You do not have permission to do that", channelID, userID)
+        return
+      }
     } else if (cmd == "joined") {
       var userID = userTagToID(args[0])
       if (userID == null || userID == "") {
