@@ -453,6 +453,6 @@ bot.on('any', function(event) {
     //User yeeted
     moderator.notifyOfBan(event.d.user.username)
   } else {
-    console.log(event)
+    //console.log(event)
   }
 });
