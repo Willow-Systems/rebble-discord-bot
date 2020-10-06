@@ -20,6 +20,57 @@
   },
   {
     "supportcodes": [
+      "betastore",
+      "storereset"
+    ],
+    "keywords": [
+      ["store","reset"],
+      ["switch","store"]
+    ],
+    "summary": "switching back to the default app store",
+    "title": "Restoring the default appstore",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You are on the Beta store, and want to revert to the default store",
+    "fix": "",
+    "fix": "- Go to https://auth.rebble.io/account/\n- Sign in\n- Click 'I know what I'm doing, show me the options anyway!'\n- Click 'Something is wrong -- I want the defaults back again!'\n- Visit boot.rebble.io on your phone and re-run the boot process\n"
+  },
+  {
+    "supportcodes": [
+      "notavailable",
+      "webpagenotavailable"
+    ],
+    "keywords": [
+      ["web","page","available"],
+      ["webpage","available"]
+    ],
+    "summary": "getting 'web page not available' from the store",
+    "title": "'Web page not available' error",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "You're getting an error 'webpage not available' from the store.",
+    "fix": "",
+    "fix": "Reboot your phone. If that does not work, revert to the default appstore if you are using the Beta store (see .support storereset)"
+  },
+  {
+    "supportcodes": [
+      "index",
+      "list"
+    ],
+    "keywords": [
+      ["index"],
+      ["list"]
+    ],
+    "summary": "pebble resources Index",
+    "title": "Pebble Resources Index",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "A list of useful links, apps, hardware and other pebble resources",
+    "fixurl": "https://willow.systems/pebble/",
+    "fix": ""
+  },
+  {
+    "supportcodes": [
       "iossms",
       "iostext",
       "iosmessages"
