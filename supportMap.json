@@ -20,6 +20,25 @@
   },
   {
     "supportcodes": [
+      "backgroundservice",
+      "dontkill",
+      "dontkillmyapp"
+    ],
+    "keywords": [
+      ["run", "background"],
+      ["app", "background"],
+      ["kill"]
+    ],
+    "summary": "app being killed in the background",
+    "title": "Pebble app background persistence",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "The Pebble app is being suppressed by your phone's power save functionality",
+    "fix": "Follow the instructions at https://dontkillmyapp.com/?app=Pebble",
+    "customicon": "https://willow.systems/pebble/bot/phone.png"
+  },
+  {
+    "supportcodes": [
       "betastore",
       "storereset"
     ],
