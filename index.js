@@ -122,6 +122,18 @@ function amIIgnoringUser(userID) {
     return false
   }
 }
+function amIOnlyDMingUser(userID) {
+  userID = userTagToID(userID)
+  if (settings.usersICareAbout.hasOwnProperty(userID)) {
+    if (settings.usersICareAbout[userID].hasOwnProperty("forcedm")) {
+      return settings.usersICareAbout[userID].forcedm
+    } else {
+      return false
+    }
+  } else {
+    return false
+  }
+}
 function toggleIgnore(userID) {
   userID = userTagToID(userID)
   if (amIIgnoringUser(userID)) {
@@ -146,7 +158,7 @@ function toggleIgnore(userID) {
     }
     settings.usersICareAbout[userID].ignore = true
 
-    botReply("Hey <@" + userID + ">", userID, userID, {
+    botReply(" ", userID, userID, {
       color: parseInt("ff4700", 16),
       thumbnail: {
         url: "https://willow.systems/pebble/bot/mute.png",
@@ -156,6 +168,25 @@ function toggleIgnore(userID) {
       title: "I'm now ignoring you",
       description: "Just write `.ignore` again if you ever change your mind"
     });
+  }
+  save()
+}
+function toggleForceDM(userID, adminID) {
+  userID = userTagToID(userID)
+  if (amIOnlyDMingUser(userID)) {
+
+    settings.usersICareAbout[userID].forcedm = false
+    moderator.notifyOfForceDM(userID, adminID, false)
+
+
+  } else {
+
+    if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+      settings.usersICareAbout[userID] = {};
+    }
+    settings.usersICareAbout[userID].forcedm = true
+    moderator.notifyOfForceDM(userID, adminID, true)
+
   }
   save()
 }
@@ -197,6 +228,11 @@ bot = new Discord.Client({
 });
 function botReply(msg, channelID, userID, msgEmbed) {
   if (msg == null || msg == "") { return }
+
+  if (amIOnlyDMingUser(userID)) {
+    //DM user
+    channelID = userID
+  }
 
   if (msg.includes("~")) {
     msg = msg.split("~");
@@ -274,6 +310,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   var messageID = evt.d.id
+  console.log(userID + " says " + message);
 
   //Get roles
   var roles = []
@@ -299,6 +336,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   //Moderate message
   moderator.scan(message, messageID, userID, channelID)
+
+  //Remove punctuation we don't care about
+  message = message.replace(/[\(\)\[\]\{\}\!]/g,"");
 
   // Commands
   if (message.substr(0,1) == ".") {
@@ -330,7 +370,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // Admin commands
-  if (message.substr(0,1) == "$" && /on|off|help|save|joined.*/.test(message)) {
+  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm.*/.test(message)) {
     if (! userauth.hasPermission(roles, "useAdminCommands")) {
       botReply("You do not have permission to do that", channelID, userID)
       return
@@ -357,15 +397,22 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         return
       }
     } else if (cmd == "joined") {
-      var userID = userTagToID(args[0])
-      if (userID == null || userID == "") {
+      var usr = userTagToID(args[0])
+      if (usr == null || usr == "") {
         botReply("Missing argument. Usage: $joined @user", channelID, userID);
       } else {
-        if (settings.usersICareAbout.hasOwnProperty(userID) && settings.usersICareAbout[userID].hasOwnProperty("joined")) {
-          botReply("User join date: **" + settings.usersICareAbout[userID].joined.toString().split(".")[0].replace("T", " ") + "**", channelID, userID);
+        if (settings.usersICareAbout.hasOwnProperty(usr) && settings.usersICareAbout[usr].hasOwnProperty("joined")) {
+          botReply("User join date: **" + settings.usersICareAbout[usr].joined.toString().split(".")[0].replace("T", " ") + "**", channelID, userID);
         } else {
           botReply("Unknown user or data not yet gathered.", channelID, userID);
         }
+      }
+    } else if (cmd == "forcedm") {
+      var usr = userTagToID(args[0])
+      if (usr == null || usr == "") {
+        botReply("Missing argument. Usage: $joined @user", channelID, userID);
+      } else {
+        toggleForceDM(usr, userID);
       }
     } else if (cmd == "save") {
       save();
@@ -375,6 +422,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
   }
 
+  //Remove . as it's not a command
+  message = message.replace(/\./g,"");
+
   // Pebble image sending
   var img = pbimg.match(message)
   if (img != false) {
@@ -383,7 +433,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   //help keyword detection
-  if (message.substr(0,1) == "?") {
+  if (message.substr(0,1) == "?" && message.replace(/[\?\ ]/g,"").length > 1) {
 
     var supportResponse = support.handleNLQuery(message)
     botReply(supportResponse.msg, channelID, userID, supportResponse.embed);
