@@ -88,6 +88,42 @@ function notifyOfBan(bannedUsername) {
       })
   }
 }
+function notifyOfForceDM(userID, adminID, state) {
+  if (getModChannel() != null) {
+    if (state == true) {
+      utils.sendMessage(" ", getModChannel(), null, {
+        color: parseInt("ffc83c", 16),
+        thumbnail: {
+          url: "https://willow.systems/pebble/bot/bot.png",
+          height: 80,
+          width: 80
+        },
+        title: "Moderation Alert",
+        fields: [
+          {name: "Username", value: "<@" + userID + ">"},
+          {name: "Reason for alert", value: "DMOnly has been enabled for this user. Any replies from the bot will go to the user's DMs instead of the channel they asked the question in."},
+          {name: "Enabled by", value: "<@" + adminID + ">"}
+        ]
+      })
+    } else {
+      utils.sendMessage(" ", getModChannel(), null, {
+        color: parseInt("ffc83c", 16),
+        thumbnail: {
+          url: "https://willow.systems/pebble/bot/bot.png",
+          height: 80,
+          width: 80
+        },
+        title: "Moderation Alert",
+        fields: [
+          {name: "Username", value: "<@" + userID + ">"},
+          {name: "Reason for alert", value: "DMOnly has been disabled for this user."},
+          {name: "Enabled by", value: "<@" + adminID + ">"}
+        ]
+      })
+    }
+  }
+}
 module.exports.scan = moderateMessage
 module.exports.warnPotentialImpersonate = warnPotentialImpersonate
 module.exports.notifyOfBan = notifyOfBan
+module.exports.notifyOfForceDM = notifyOfForceDM
