@@ -418,7 +418,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       save();
       botReply("It is now safe to turn off your computer", channelID, userID);
     } else if (cmd == "help") {
-      botReply("Adminstrator Commands:\n$off - Suspend Anne\n$on - Reanimate Anne\n$joined @user - Show the server join date for user\n$save - Save brain to disk\n$help - Show this dialogue", channelID, userID);
+      botReply("Adminstrator Commands:\n$off - Suspend Anne\n$on - Reanimate Anne\n$joined @user - Show the server join date for user\n$forcedm @user - Toggle forceDM mode for @user. If enabled bot will only DM @user in response to messages\n$save - Save brain to disk\n$help - Show this dialogue", channelID, userID);
     }
   }
 
