@@ -410,7 +410,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     } else if (cmd == "forcedm") {
       var usr = userTagToID(args[0])
       if (usr == null || usr == "") {
-        botReply("Missing argument. Usage: $joined @user", channelID, userID);
+        botReply("Missing argument. Usage: $forcedm @user", channelID, userID);
       } else {
         toggleForceDM(usr, userID);
       }

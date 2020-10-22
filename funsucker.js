@@ -117,7 +117,7 @@ function notifyOfForceDM(userID, adminID, state) {
         fields: [
           {name: "Username", value: "<@" + userID + ">"},
           {name: "Reason for alert", value: "DMOnly has been disabled for this user."},
-          {name: "Enabled by", value: "<@" + adminID + ">"}
+          {name: "Disabled by", value: "<@" + adminID + ">"}
         ]
       })
     }
