@@ -20,6 +20,28 @@
   },
   {
     "supportcodes": [
+      "playprotect",
+      "googleplay",
+      "playwarning"
+    ],
+    "keywords": [
+      ["play", "protect"],
+      ["warning"],
+      ["playprotect"],
+      ["device","risk"],
+      ["removed","play"]
+    ],
+    "summary": "Google play protect warning",
+    "title": "Google Play Protect warns about the Pebble app",
+    "subtitle": "",
+    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "description": "Google Play Protect may warn you about the Pebble app.\nYou can disregard this warning and have nothing to worry about. The Pebble app is completely safe.\n\nThis warning is due to the age of the Pebble app. It technically no longer meets Google Play's guidelines because of the way it asks for phone call and SMS access, which it uses for notifications.\nDetails of that policy here can be viewed by clicking the title of this message.\n\nIf you get a prompt asking you or recommending you to delete it, you should disregard it.",
+    "fix": "Simply ignore the warning. The Pebble app is safe, just old.",
+    "customicon": "https://willow.systems/pebble/bot/warning.png",
+    "url": "https://support.google.com/googleplay/android-developer/answer/9047303"
+  },
+  {
+    "supportcodes": [
       "backgroundservice",
       "dontkill",
       "dontkillmyapp"

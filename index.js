@@ -310,7 +310,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   var messageID = evt.d.id
-  console.log(userID + " says " + message);
 
   //Get roles
   var roles = []
