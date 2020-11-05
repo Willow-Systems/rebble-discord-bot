@@ -301,6 +301,7 @@
     "customicon": "https://willow.systems/pebble/bot/sdk.png",
     "customfields": [
       {"name": "SDK Installation Instructions (all platforms):", "value": "https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows/"},
+      {"name": "Step-by-step SDK setup guide for Ubuntu 20.04:", "value": "https://willow.systems/blog/pebble-sdk-installation-guide/"},
       {"name": "SDK Installation Script (Debian or WSL):", "value": "https://gist.github.com/zeevro/ce20d0d74a869d73119e9d1522b7caa7"},
       {"name": "SDK Docker Image:", "value": "https://hub.docker.com/r/rebble/pebble-sdk"},
       {"name": "Ubuntu Virtual Machine with SDK installed:", "value": "https://willow.systems/pebble/vm/"},
