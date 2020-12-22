@@ -259,7 +259,8 @@
     "fixurl": "",
     "customicon": "https://willow.systems/pebble/bot/battery.png",
     "customfields": [
-      {"name": "IFixIt Batteries for Pebble:", "value": "https://www.ifixit.com/Search?query=pebble+battery"}
+      {"name": "IFixIt Batteries for OG,Steel,Time Steel,P2 (US Store Only):", "value": "https://www.ifixit.com/Search?query=pebble+battery"},
+      {"name": "Pebble Round Batteries", "value": "https://www.aliexpress.com/item/1005001281286507.html"}
     ]
   },
   {
@@ -300,10 +301,11 @@
     "fixurl": "",
     "customicon": "https://willow.systems/pebble/bot/sdk.png",
     "customfields": [
-      {"name": "SDK Installation Instructions (all platforms):", "value": "https://www.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows/"},
+      {"name": "SDK Installation Instructions (all platforms):", "value": "https://old.reddit.com/r/pebble/comments/9i9aqy/developing_for_pebble_without_cloudpebble_windows/"},
       {"name": "Step-by-step SDK setup guide for Ubuntu 20.04:", "value": "https://willow.systems/blog/pebble-sdk-installation-guide/"},
       {"name": "SDK Installation Script (Debian or WSL):", "value": "https://gist.github.com/zeevro/ce20d0d74a869d73119e9d1522b7caa7"},
       {"name": "SDK Docker Image:", "value": "https://hub.docker.com/r/rebble/pebble-sdk"},
+      {"name": "SDK Nix Package:", "value": "https://github.com/Sorixelle/pebble.nix"},
       {"name": "Ubuntu Virtual Machine with SDK installed:", "value": "https://willow.systems/pebble/vm/"},
       {"name": "Pebble SDK Documentation mirror", "value": "https://developer.rebble.io/developer.pebble.com/index.html"}
     ]
