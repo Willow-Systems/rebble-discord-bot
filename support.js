@@ -131,7 +131,9 @@ function suggestTopics(message) {
   if (topics.length < 1) {
     output = "I don't understand what you're asking. " + noClueFollowUps[utils.getRndInteger(0, noClueFollowUps.length-1)]
   } else if (topics.length == 1) {
-    output = "If you would like help with " + topics[0].summary + ", reply with: `.support " + topics[0].code + "`"
+    //output = "If you would like help with " + topics[0].summary + ", reply with: `.support " + topics[0].code + "`"
+    output = " "
+    return handle(topics[0].code);
   } else {
     output = "It looks like you're asking for help, but I'm not certain about what. Here are some topics that might be useful. Reply with `.support [topic]` to see a solution."
     embed = {
