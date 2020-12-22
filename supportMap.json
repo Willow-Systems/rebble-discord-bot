@@ -255,7 +255,7 @@
     "subtitle": "",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "Your Pebble's current batteries are dying, and you want to fit new ones",
-    "fix": "Batteries can be replaced on all models of Pebble. Not that it's harder on the PTR - you need a spot welder",
+    "fix": "Batteries can be replaced on all models of Pebble.",
     "fixurl": "",
     "customicon": "https://willow.systems/pebble/bot/battery.png",
     "customfields": [
