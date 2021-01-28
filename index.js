@@ -134,13 +134,13 @@ function amIOnlyDMingUser(userID) {
     return false
   }
 }
-function toggleIgnore(userID) {
+function toggleIgnore(userID, channelID) {
   userID = userTagToID(userID)
   if (amIIgnoringUser(userID)) {
 
     settings.usersICareAbout[userID].ignore = false
 
-    botReply(" ", userID, userID, {
+    botReply(" ", channelID, userID, {
       color: parseInt("ff4700", 16),
       thumbnail: {
         url: "https://willow.systems/pebble/bot/unmute.png",
@@ -158,7 +158,7 @@ function toggleIgnore(userID) {
     }
     settings.usersICareAbout[userID].ignore = true
 
-    botReply(" ", userID, userID, {
+    botReply(" ", channelID, userID, {
       color: parseInt("ff4700", 16),
       thumbnail: {
         url: "https://willow.systems/pebble/bot/mute.png",
@@ -206,7 +206,9 @@ function deleteMessage(cid, mid, callback) {
 
 function recordSeenUser(userID) {
   userID = userTagToID(userID)
-  settings.seenusers.push(userID)
+  if (! settings.seenusers.includes(userID)) {
+	  settings.seenusers.push(userID)
+  }
 }
 function haveISeenUserBefore(userID) {
   userID = userTagToID(userID)
@@ -362,7 +364,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       botReply(s.msg, channelID, userID, s.embed);
 
     } else if (cmd == "ignore") {
-      toggleIgnore(userID);
+      toggleIgnore(userID, channelID);
     }
 
 
