@@ -238,8 +238,9 @@
     "subtitle": "",
     "lastupdated": "2021-02-01T13:40:19.402Z",
     "description": "You want to side load a .pbw file to your watch",
-    "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case download our amazing app: Rebble Sideloader <:charon:805876884184367125>. Click the title of this message to go to the play store.",
-    "url": "https://play.google.com/store/apps/details?id=io.rebble.charon"
+    "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case download our amazing app: <:charon:805876884184367125> Rebble Sideloader. Click the title of this message to go to the play store.",
+    "url": "https://play.google.com/store/apps/details?id=io.rebble.charon",
+    "customicon": "https://willow.systems/pebble/bot/deleted.png"
   },
   {
     "supportcodes": [
@@ -255,7 +256,7 @@
     "title": "Downloading the Rebble sideloader",
     "subtitle": "",
     "lastupdated": "2021-02-01T13:40:19.402Z",
-    "description": "You want to install the Rebble Sideload Helper app <:charon:805876884184367125>",
+    "description": "You want to install the <:charon:805876884184367125> Rebble Sideload Helper app",
     "fix": "Visit rebble.io/charon for a link to the play store, or click the title of this message",
     "url": "https://play.google.com/store/apps/details?id=io.rebble.charon"
   },
