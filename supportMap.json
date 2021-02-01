@@ -236,10 +236,28 @@
     "summary": "installing a .pbw to your watch",
     "title": "Sideloading a .pbw to your watch",
     "subtitle": "",
-    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "lastupdated": "2021-02-01T13:40:19.402Z",
     "description": "You want to side load a .pbw file to your watch",
-    "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case using the Dropbox app or AmazeFileExplorer may work.",
-    "fixurl": ""
+    "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case download our amazing app: Rebble Sideloader <:charon:805876884184367125>. Click the title of this message to go to the play store.",
+    "url": "https://play.google.com/store/apps/details?id=io.rebble.charon"
+  },
+  {
+    "supportcodes": [
+      "charon",
+      "sideloader"
+    ],
+    "keywords": [
+      ["charon"],
+      ["sideloader", "rebble"],
+      ["sideloader", "app"]
+    ],
+    "summary": "downloading Rebble sideloader",
+    "title": "Downloading the Rebble sideloader",
+    "subtitle": "",
+    "lastupdated": "2021-02-01T13:40:19.402Z",
+    "description": "You want to install the Rebble Sideload Helper app <:charon:805876884184367125>",
+    "fix": "Visit rebble.io/charon for a link to the play store, or click the title of this message",
+    "url": "https://play.google.com/store/apps/details?id=io.rebble.charon"
   },
   {
     "supportcodes": [
@@ -419,7 +437,8 @@
     "keywords": [
       ["buttons"],
       ["screen", "replace"],
-      ["side"]
+      ["damaged"],
+      ["rubber"]
     ],
     "summary": "pebble 2 hardware issues",
     "title": "Pebble 2 Hardware Issues",
