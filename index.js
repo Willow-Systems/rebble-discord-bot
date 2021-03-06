@@ -328,6 +328,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
   }
 
+  //Moderate message
+  moderator.scan(message, messageID, userID, channelID)
 
   //Ignore user?
   if (amIIgnoringUser(userID) && message.indexOf(".ignore") == -1) {
@@ -335,8 +337,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return
   }
 
-  //Moderate message
-  moderator.scan(message, messageID, userID, channelID)
+ 
 
   //Remove punctuation we don't care about
   message = message.replace(/[\(\)\[\]\{\}\!]/g,"");
