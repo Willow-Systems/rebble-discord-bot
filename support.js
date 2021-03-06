@@ -13,19 +13,22 @@ var noClueFollowUps = [
   ":computer: :fire:",
   "This incident will be reported.",
   "Could you repeat in binary?",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues.",
-  "Perhaps check https://rebble.io/howto#Common-Issues."
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io",
+  "Perhaps check https://help.rebble.io"
 ]
 
 function handle(supportQuery) {
@@ -54,8 +57,12 @@ function handle(supportQuery) {
 
       var fields = [
         {name: "Description:", value: sup.description},
-        {name: "Fix:", value: fixtext}
+        {name: "Fix:", value: fixtext},
       ]
+      
+      if (sup.hasOwnProperty("helplink") && sup.helplink != "") {
+        fields.push({name: "View in Rebble Help Center: ", value: sup.helplink});
+      }
 
       if (sup.customfields != null && sup.customfields != []) {
         fields = fields.concat(sup.customfields)

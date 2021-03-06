@@ -7,16 +7,17 @@
     "keywords": [
       ["locker", "sync"],
       ["cant", "download"],
-      ["installed", "store"]
+      ["installed", "store"],
+      ["download"]
     ],
     "summary": "locker sync/download issues",
     "title": "Locker Sync Issue",
     "subtitle": "",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "Apps may appear installed in the Rebble store, but aren't actually in your locker. Your phone is out of sync with the servers",
-    "fix": "",
-    "fix": "Firstly, try rebooting your phone. If that doesn't work, see https://old.reddit.com/r/pebble/comments/ie51z2/slug/g2dk1mz",
-    "customicon": "https://willow.systems/pebble/bot/sync.png"
+    "fix": "Firstly, try rebooting your phone. If that doesn't work, see https://help.rebble.io/lockerSync",
+    "customicon": "https://willow.systems/pebble/bot/sync.png",
+    "helplink": "https://help.rebble.io/lockerSync"
   },
   {
     "supportcodes": [
@@ -38,7 +39,8 @@
     "description": "Google Play Protect may warn you about the Pebble app.\nYou can disregard this warning and have nothing to worry about. The Pebble app is completely safe.\n\nThis warning is due to the age of the Pebble app. It technically no longer meets Google Play's guidelines because of the way it asks for phone call and SMS access, which it uses for notifications.\nDetails of that policy here can be viewed by clicking the title of this message.\n\nIf you get a prompt asking you or recommending you to delete it, you should disregard it.",
     "fix": "Simply ignore the warning. The Pebble app is safe, just old.",
     "customicon": "https://willow.systems/pebble/bot/warning.png",
-    "url": "https://support.google.com/googleplay/android-developer/answer/9047303"
+    "url": "https://support.google.com/googleplay/android-developer/answer/9047303",
+    "helplink": "https://help.rebble.io/play-protect/"
   },
   {
     "supportcodes": [
@@ -145,8 +147,9 @@
     "subtitle": "",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "You've not yet got setup with Rebble",
-    "fix": "Follow the instructions at https://rebble.io/howto. There's an APK download link there too in case you're on Android",
-    "fixurl": ""
+    "fix": "Follow the instructions at https://help.rebble.io/setup/. There's an APK download link there too in case you're on Android",
+    "fixurl": "",
+    "helplink": "https://help.rebble.io/setup/"
   },
   {
     "supportcodes": [
@@ -161,7 +164,8 @@
     "title": "Running the boot process",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "The boot process is the step during setup where we tell the Pebble app to point to Rebble servers. Re-running this often solves issues.",
-    "fix": "Navigate to https://boot.rebble.io **on your phone**, follow the instructions."
+    "fix": "Navigate to https://boot.rebble.io **on your phone**, follow the instructions.",
+    "helplink": "https://help.rebble.io/boot/"
   },
   {
     "supportcodes": [
@@ -201,7 +205,8 @@
     "description": "You want to switch the Pebble app back to pointing at the dead Pebble servers. For some reason.",
     "fix": "Visit https://rebble.io/unrebble.html on you phone.",
     "fixurl": "",
-    "customicon": "https://willow.systems/pebble/bot/deleted.png"
+    "customicon": "https://willow.systems/pebble/bot/deleted.png",
+    "helplink": "https://help.rebble.io/unrebble/"
   },
   {
     "supportcodes": [
@@ -220,7 +225,8 @@
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "You want to download the .pbw file for a Pebble app or watchface",
     "fix": "Visit https://apps.rebble.io/?dev_settings=true in a browser. Find the app or face and select the new 'download .pbw' option at the bottom of the screen.",
-    "fixurl": ""
+    "fixurl": "",
+    "helplink": "https://help.rebble.io/lockerSync/#2"
   },
   {
     "supportcodes": [
@@ -240,7 +246,8 @@
     "description": "You want to side load a .pbw file to your watch",
     "fix": "Download the .pbw on your phone. Open it in file manager and choose to 'open with Pebble'. On Android the Pebble app is often not an option, in which case download our amazing app: <:charon:805876884184367125> Rebble Sideloader. Click the title of this message to go to the play store.",
     "url": "https://play.google.com/store/apps/details?id=io.rebble.charon",
-    "customicon": "https://willow.systems/pebble/bot/charon.png"
+    "customicon": "https://willow.systems/pebble/bot/charon.png",
+    "helplink": "https://help.rebble.io/sideloading/"
   },
   {
     "supportcodes": [
@@ -259,7 +266,8 @@
     "description": "You want to install the <:charon:805876884184367125> Rebble Sideload Helper app",
     "fix": "Visit rebble.io/charon for a link to the play store, or click the title of this message",
     "url": "https://play.google.com/store/apps/details?id=io.rebble.charon",
-    "customicon": "https://willow.systems/pebble/bot/charon.png"
+    "customicon": "https://willow.systems/pebble/bot/charon.png",
+    "helplink": "https://help.rebble.io/sideloading/"
   },
   {
     "supportcodes": [
@@ -328,7 +336,8 @@
       {"name": "SDK Nix Package:", "value": "https://github.com/Sorixelle/pebble.nix"},
       {"name": "Ubuntu Virtual Machine with SDK installed:", "value": "https://willow.systems/pebble/vm/"},
       {"name": "Pebble SDK Documentation mirror", "value": "https://developer.rebble.io/developer.pebble.com/index.html"}
-    ]
+    ],
+    "helplink": "https://help.rebble.io/sdk/"
   },
   {
     "supportcodes": [
@@ -379,7 +388,8 @@
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "You want to submit an app to the Rebble appstore",
     "fixurl": "https://rebble.io/submit",
-    "customicon": "https://willow.systems/pebble/bot/sdk.png"
+    "customicon": "https://willow.systems/pebble/bot/sdk.png",
+    "helplink": "https://help.rebble.io/appstore-submission"
   },
   {
     "supportcodes": [
