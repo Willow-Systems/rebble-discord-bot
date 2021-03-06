@@ -337,8 +337,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     return
   }
 
- 
-
   //Remove punctuation we don't care about
   message = message.replace(/[\(\)\[\]\{\}\!]/g,"");
 
@@ -494,7 +492,6 @@ bot.on('any', function(event) {
     var newuser = event.d.user.username;
     newuser = newuser.toLowerCase().replace(/[!?.'")>\]]/g,"")
     for (var i = 0; i < protectedUsernames.length; i++) {
-      console.log("Does " + newuser + " =~ " + protectedUsernames[i])
       if (newuser == protectedUsernames[i]) {
         moderator.warnPotentialImpersonate(event.d.user.id)
         break
