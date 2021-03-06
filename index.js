@@ -326,6 +326,20 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     if (! settings.usersICareAbout.hasOwnProperty(userID)) { settings.usersICareAbout[userID] = {} }
     settings.usersICareAbout[userID].joined  = (evt.d.member.hasOwnProperty("joined_at")) ? evt.d.member.joined_at : "Unknown"
 
+    //Store some basic metadata for fun
+    //Inc messagecount
+    settings.usersICareAbout[userID].msgcount = (settings.usersICareAbout[userID].hasOwnProperty("msgcount")) ? settings.usersICareAbout[userID].msgcount + 1 : 1;
+
+    if (! settings.usersICareAbout[userID].hasOwnProperty("wordcount")) {
+      settings.usersICareAbout[userID].wordcount = {
+        pebble: 0,
+        yes: 0,
+        no: 0
+      }
+    }
+    settings.usersICareAbout[userID].wordcount.pebble += (message.match(/pebble/g) || []).length
+    settings.usersICareAbout[userID].wordcount.yes += (message.match(/\byes\b/g) || []).length
+    settings.usersICareAbout[userID].wordcount.no += (message.match(/\bno\b/g) || []).length
   }
 
   //Moderate message
@@ -352,6 +366,13 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     if (cmd == "help") {
       botReply(" ", channelID, userID, generateHelpEmbed());
+    } else if (cmd == "stats") {
+
+      var countStart = new Date("2021-03-06T12:27:02.898Z");
+      var ago = new Date() - countStart
+      ago = Math.floor(ago / 1000 / 3600 / 24)
+      botReply("Since I started counting " + ago + " days ago, you've sent " + settings.usersICareAbout[userID].msgcount + " messages. You've said 'pebble' " + settings.usersICareAbout[userID].wordcount.pebble + " times, 'yes' " + settings.usersICareAbout[userID].wordcount.yes + " times and 'no' " + settings.usersICareAbout[userID].wordcount.no + " times.", channelID, userID);
+      return
 
     } else if (cmd == "permissions") {
       var response = "Permission bits for <@" + userID + ">:\nuseAdminCommands: " + userauth.hasPermission(roles, "useAdminCommands");
