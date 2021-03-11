@@ -2,11 +2,12 @@ var Discord = require('discord.io');
 var fs = require('fs');
 var wait = require('wait-sync');
 const auth = require("./auth.json");
-const support = require("./support.js")
-const codes = require("./errorcodes.js")
-const moderator = require("./funsucker.js")
-var pbimg = require("./pblimg.js")
-var userauth = require("./roles.js")
+const support = require("./support.js");
+const codes = require("./errorcodes.js");
+const moderator = require("./funsucker.js");
+var pbimg = require("./pblimg.js");
+var userauth = require("./roles.js");
+const appstore = require("./appsearch.js");
 const config = require("./config.json");
 
 //Automatically start bot on launch (true normally, false for debug)
@@ -82,9 +83,12 @@ function generateHelpEmbed() {
       {"name": "Asking me a question", value: "Start a question with a question mark, and I'll try to find support for your issue. For example: `? Where can I find the android app?`"},
       {"name": "Pebble Images", value: "If you write a message with a Pebble resource in it (i.e. `system://images/emoji_11`), I'll post that image. For a list of all available, see https://willow.systems/pebble/bot/images/"},
       {"name": "Error codes", value: "If you write a message with a Pebble error code in it (i.e. `FE504504`), I'll explain how to fix it."},
+      {"name": "Appstore Embed", value: "If you paste a Pebble store link (and nothing else), I'll pull some of the info"},
       {"name": "Other Commands", value: "I also have a few commands that are useful. These start with a leading period:"},
       {"name": ".support [topic]", "value": "Show a support topic. If you don't know what you're looking for, try asking me a question first."},
-      {"name": ".support list", "value": "List all support topics"},
+      {"name": ".support list", "value": "List all support topics."},
+      {"name": ".store [search term]", "value": "I'll search the store with your term and return the top result."},
+      {"name": ".app [search term], .face [search term]", "value": "The same as .store, but filtered to apps or faces only."},
       {"name": ".help", "value":"Show this message"},
       {"name": ".ignore", "value":"Toggle whether I should ignore you or not"}
     ]
@@ -235,7 +239,6 @@ function botReply(msg, channelID, userID, msgEmbed) {
     //DM user
     channelID = userID
   }
-
   if (msg.includes("~")) {
     msg = msg.split("~");
     if (msg[0] == "file") {
@@ -354,6 +357,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   //Remove punctuation we don't care about
   message = message.replace(/[\(\)\[\]\{\}\!]/g,"");
 
+  appstore.detectAutoEmbed(message, function(res) {
+    if (res.s) {
+      botReply(" ", channelID, userID, {
+        color: parseInt(res.category_color, 16),
+        thumbnail: {
+          url: res.img,
+          height: 144,
+          width: 168
+        },
+        title: res.title,
+        fields: [
+          {name: "Category", value: res.category},
+          {name: "Description", value: res.description},
+          {name: "Author", value: res.author},
+          {name: "Hearts", value: res.hearts}
+        ],
+        footer: {
+          "text": "(Click the title to go to the store page)"
+        },
+        url: "https://apps.rebble.io/en_US/application/" + res.id
+      });
+    }
+  });
+
   // Commands
   if (message.substr(0,1) == ".") {
     var args = message.substr(1).split(' ');
@@ -385,6 +412,40 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     } else if (cmd == "ignore") {
       toggleIgnore(userID, channelID);
+    } else if (cmd == "app" || cmd == "face" || cmd == "store") {
+      var filter = {
+        app: "watchapp",
+        face: "watchface",
+        store: "watchface,watchapp"
+      }[cmd]
+      appstore.search(args.join(" "), filter, function(res) {
+
+        if (res.s) {
+          botReply(" ", channelID, userID, {
+            color: parseInt(res.category_color, 16),
+            thumbnail: {
+              url: res.img,
+              height: 144,
+              width: 168
+            },
+            title: res.title,
+            fields: [
+              {name: "Category", value: res.category},
+              {name: "Description", value: res.description},
+              {name: "Author", value: res.author},
+              {name: "Hearts", value: res.hearts},
+            ],
+            footer: {
+              "text": "(Click the title to go to the store page)"
+            },
+            url: "https://apps.rebble.io/en_US/application/" + res.id
+          });
+        } else {
+          botReply("No results", channelID, userID);
+        }
+      }, function() {
+        botReply("Something went wrong", channelID, userID);
+      });
     }
 
 
@@ -409,7 +470,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         botReply("You do not have permission to do that", channelID, userID)
         return
       }
-    } else if (cmd == "on") {
+  } else if (cmd == "on") {
       if (userauth.hasPermission(roles, "switchOff")) {
         disabled = false
         botReply("I'm awake!", channelID, userID);
