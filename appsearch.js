@@ -60,7 +60,7 @@ function getApp(appID, cb, ecb) {
 
 // Configure the request
 var options = {
-  url: "https://appstore-api.rebble.io/api/v1/apps/id/53a898a2cfee2a02c900006c?platform=all",
+  url: "https://appstore-api.rebble.io/api/v1/apps/id/" + appID + "?platform=all",
   method: "GET",
   headers: headers
 }
