@@ -110,7 +110,7 @@ function loadSaveData() {
 }
 function save() {
   fs.writeFile(__dirname + "/brain.json", JSON.stringify(settings), "UTF-8", function() {
-    debugLog("Settings persisted to disk.");
+    //debugLog("Settings persisted to disk.");
   });
 }
 
