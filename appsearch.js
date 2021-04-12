@@ -83,7 +83,13 @@ request(options, function (error, response, body) {
         var result = body.data[0];
         result.img = result.list_image["144x144"].replace("144x144/","");
         result.s = true
-        result.description = decodeURI(result.description)
+	result.description = result.description.replace(/%/g,"{{perc}}")
+	try {
+	        result.description = decodeURI(result.description)
+	} catch (e) {
+		result.description = "Description Unavailable. Please see store"
+	}
+	result.description = result.description.replace(/{{perc}}/g,"%");
         if (result.description.length > 300) {
           result.description = result.description.substr(0, 300) + "..."
         }
