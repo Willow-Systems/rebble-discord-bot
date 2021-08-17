@@ -9,6 +9,7 @@ var pbimg = require("./pblimg.js");
 var userauth = require("./roles.js");
 const appstore = require("./appsearch.js");
 const config = require("./config.json");
+const ai = require("./ai.js");
 
 //Automatically start bot on launch (true normally, false for debug)
 var autoStartBot = true;
@@ -411,6 +412,9 @@ bot.on('ready', function (evt) {
     //Check for users to unmute once a minute
     setInterval(unmuteExpiredMutes, 60000)
 
+    //Setup wolfram
+    ai.init(auth.wolfram)
+
     console.log("Initalisation complete. Ready to serve " + resolveServerIDToTrustedServer(serverID) + "!")
 });
 bot.on('disconnect', function(errMsg, code) {
@@ -497,6 +501,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       });
     }
   });
+
+  //Wolfram
+  var mytag = "<@" + bot.id + ">"
+  var msg = message.replace("<@!", "<@");
+  if (msg.substring(0, mytag.length) == mytag) {
+    if (userauth.hasPermission(roles, "useAdminCommands")) {
+
+      msg = msg.replace(mytag, "");
+      ai.answer(msg, function(response) {
+          botReply(response, channelID, userID)
+      })
+
+    }
+  }
+
 
   // Commands
   if (message.substr(0,1) == ".") {
