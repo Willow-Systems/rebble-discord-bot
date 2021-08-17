@@ -23,6 +23,7 @@ version = 0.1;
 //Dynamic configuration. Loaded/saved to disk. Don't edit here
 settings = {
   mytag: "",
+  serverID: "",
   usersICareAbout: {}
 }
 
@@ -39,7 +40,13 @@ utils = {
   sendMessage: botReply,
   deleteMessage: deleteMessage,
   getServerTrustedID: userauth.getTrustedServerName,
-  getRndInteger: getRndInteger
+  getRndInteger: getRndInteger,
+  isUserMuted: isUserMuted,
+  logMutedUserMessageDeleted: logMutedUserMessageDeleted,
+  toggleMute: toggleMute,
+  setUserMute: setUserMute,
+  userTagToID: userTagToID,
+  getUserAge: getUserAge
 }
 function resolveServerIDToTrustedServer(id) {
   var sname = null
@@ -102,6 +109,7 @@ function loadSaveData() {
     data = JSON.parse(data);
     if (data.usersICareAbout == null) { data.usersICareAbout = {} }
     if (data.seenusers == null) { data.seenusers = []}
+    if (data.mutedUsers == null) { data.mutedUsers = []}
     settings = data
   } catch (e) {
     console.log("Failed to start: " + e)
@@ -134,6 +142,15 @@ function amIOnlyDMingUser(userID) {
     } else {
       return false
     }
+  } else {
+    return false
+  }
+}
+function isUserMuted(userID) {
+  if (settings.usersICareAbout.hasOwnProperty(userID) && settings.usersICareAbout[userID].hasOwnProperty("muteUntil")) {
+    var then = new Date(settings.usersICareAbout[userID].muteUntil).getTime();
+    var now = new Date().getTime()
+    return (then > now)
   } else {
     return false
   }
@@ -194,6 +211,68 @@ function toggleForceDM(userID, adminID) {
   }
   save()
 }
+function toggleMute(userID, adminID) {
+  userID = userTagToID(userID)
+
+  if (isUserMuted(userID)) {
+
+    setUserMute(userID, new Date(0))
+    moderator.notifyOfMute(userID, adminID, false)
+
+  } else {
+
+    setUserMute(userID, new Date("2121-01-01"))
+    moderator.notifyOfMute(userID, adminID, true)
+
+  }
+  save()
+}
+function setUserMute(userID, endDate) {
+  if (endDate.getTime() < new Date().getTime()) {
+    //We're disabling mute
+    //Remove role
+    removeUserFromRole(userID, config.rateLimit.timeoutRoleID[userauth.getTrustedServerName()])
+
+    for (var i=0;i<settings.mutedUsers.length;i++) {
+      if (settings.mutedUsers[i].id == userID) {
+        settings.mutedUsers.splice(i,1);
+      }
+    }
+
+  } else {
+
+    //Enable mute, add role
+    addUserToRole(userID, config.rateLimit.timeoutRoleID[userauth.getTrustedServerName()])
+    settings.mutedUsers.push({
+      id: userID,
+      end: endDate
+    });
+
+  }
+
+  if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+    settings.usersICareAbout[userID] = {};
+  }
+  settings.usersICareAbout[userID].muteUntil = endDate.getTime()
+}
+function unmuteExpiredMutes() {
+  for (var i=0;i<settings.mutedUsers.length;i++) {
+    var then = new Date(settings.mutedUsers[i].end).getTime()
+    var now = new Date().getTime()
+    if (then < now) {
+      setUserMute(settings.mutedUsers[i].id, new Date(0))
+    }
+  }
+}
+function logMutedUserMessageDeleted(userID) {
+  if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+    settings.usersICareAbout[userID] = {}
+  }
+  if (! settings.usersICareAbout.hasOwnProperty("mutedMsgCount")) {
+    settings.usersICareAbout.mutedMsgCount = 0
+  }
+  settings.usersICareAbout.mutedMsgCount++
+}
 function deleteMessage(cid, mid, callback) {
   console.log("Channel: " + cid.toString())
   console.log("Message: " + mid.toString())
@@ -218,6 +297,40 @@ function haveISeenUserBefore(userID) {
   userID = userTagToID(userID)
   return settings.seenusers.includes(userID)
 }
+function getUserAge(userID) {
+  if (settings.usersICareAbout.hasOwnProperty(userID) && settings.usersICareAbout[userID].hasOwnProperty("joined")) {
+    var birthDate = new Date(settings.usersICareAbout[userID].joined).getTime()
+    var now = new Date().getTime()
+    var ago = (now - birthDate) / 1000 / 3600 / 24
+    console.log(userID + " is " + ago + " days old")
+    return ago
+  } else {
+    return 0
+  }
+}
+function addUserToRole(userID, roleID) {
+  bot.addToRole({
+    serverID: settings.serverID,
+    userID: userID,
+    roleID: roleID
+}, (error, response) => {
+    if (error != null) {
+        console.log("Add role error: " + JSON.stringify(error))
+    }
+})
+}
+function removeUserFromRole(userID, roleID) {
+  bot.removeFromRole({
+    serverID: settings.serverID,
+    userID: userID,
+    roleID: roleID
+}, (error, response) => {
+    if (error != null) {
+        console.log("Add role error: " + JSON.stringify(error))
+    }
+})
+}
+
 //Load data from FILE
 loadSaveData()
 
@@ -270,6 +383,7 @@ bot.on('ready', function (evt) {
     //Get the first server address. This bot is not designed to service multiple servers on the same runtime (though it probably could)
     try {
       var serverID = evt.d.guilds[0].id
+      settings.serverID = serverID
     } catch (e) {
       console.log("Failed to get server ID: " + e);
       var serverID = "Unknown"
@@ -293,6 +407,9 @@ bot.on('ready', function (evt) {
 
     //Save once every 15 mins
     setInterval(save, 900000);
+
+    //Check for users to unmute once a minute
+    setInterval(unmuteExpiredMutes, 60000)
 
     console.log("Initalisation complete. Ready to serve " + resolveServerIDToTrustedServer(serverID) + "!")
 });
@@ -345,7 +462,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     settings.usersICareAbout[userID].wordcount.no += (message.match(/\bno\b/g) || []).length
   }
 
-  //Moderate message
+  //Moderate message (delete if user muted)
   moderator.scan(message, messageID, userID, channelID)
 
   //Ignore user?
@@ -452,7 +569,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // Admin commands
-  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm.*/.test(message)) {
+  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm|toggleMute|muteState.*/.test(message)) {
     if (! userauth.hasPermission(roles, "useAdminCommands")) {
       botReply("You do not have permission to do that", channelID, userID)
       return
@@ -495,6 +612,31 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         botReply("Missing argument. Usage: $forcedm @user", channelID, userID);
       } else {
         toggleForceDM(usr, userID);
+      }
+    } else if (cmd == "toggleMute") {
+
+      var usr = userTagToID(args[0])
+      if (usr == null || usr == "") {
+        botReply("Missing argument. Usage: $toggleMute @user (@ or ID)", channelID, userID);
+      } else {
+        toggleMute(usr, userID);
+      }
+
+    } else if (cmd == "muteState") {
+      var usr = userTagToID(args[0])
+      if (usr == null || usr == "") {
+        botReply("Missing argument. Usage: $muteState @user (@ or ID)", channelID, userID);
+      } else {
+
+        var out = (isUserMuted(usr)) ? "User is muted. " : "User is not muted. "
+        if (settings.usersICareAbout.hasOwnProperty(usr) && settings.usersICareAbout[usr].hasOwnProperty("muteUntil") && isUserMuted(usr)) {
+          out += " Mute expires " + new Date(settings.usersICareAbout[usr].muteUntil).toISOString() + ". "
+        }
+        if (settings.usersICareAbout.hasOwnProperty(usr) && settings.usersICareAbout[usr].hasOwnProperty("mutedMsgCount")) {
+          out += ` While muted they have tried to send ${settings.usersICareAbout[usr].mutedMsgCount} messages.`
+        }
+        botReply(out, channelID, userID);
+
       }
     } else if (cmd == "save") {
       save();

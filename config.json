@@ -27,5 +27,15 @@
   },
   "timeouts": {
     "errorCodes": 3600
+  },
+  "rateLimit": {
+    "Xmessages": 3,
+    "Ymilliseconds": 1000,
+    "youngerThanDays": 1000,
+    "muteMinutes": 1,
+    "timeoutRoleID": {
+      "pubclub": "877241323231531008",
+      "rebble": "877279468962603068"
+    }
   }
 }
