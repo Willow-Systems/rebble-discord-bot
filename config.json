@@ -31,8 +31,8 @@
   "rateLimit": {
     "Xmessages": 3,
     "Ymilliseconds": 1000,
-    "youngerThanDays": 1000,
-    "muteMinutes": 1,
+    "youngerThanDays": 10,
+    "muteMinutes": 5,
     "timeoutRoleID": {
       "pubclub": "877241323231531008",
       "rebble": "877279468962603068"
