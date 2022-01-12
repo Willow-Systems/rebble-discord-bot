@@ -544,6 +544,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     } else if (cmd == "support") {
       var s = support.showTopic(args.join(" "));
+      if (s.file) {
+        console.log("Support topic has a file!: " + s.file)
+        botReply("file~files/" + s.file, channelID, userID);
+        s.file = null
+      }
       botReply(s.msg, channelID, userID, s.embed);
 
     } else if (cmd == "ignore") {
@@ -679,6 +684,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   if (message.substr(0,1) == "?" && message.replace(/[\?\ ]/g,"").length > 1) {
 
     var supportResponse = support.handleNLQuery(message)
+    if (supportResponse.file) {
+      console.log("Support topic has a file!: " + supportResponse.file)
+      botReply("file~files/" + supportResponse.file, channelID, userID);
+      supportResponse.file = null
+    }
     botReply(supportResponse.msg, channelID, userID, supportResponse.embed);
     recordSeenUser(userID);
     return
