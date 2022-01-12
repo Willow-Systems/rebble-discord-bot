@@ -94,7 +94,7 @@ function generateHelpEmbed() {
       {"name": "Appstore Embed", value: "If you paste a Pebble store link (and nothing else), I'll pull some of the info"},
       {"name": "Other Commands", value: "I also have a few commands that are useful. These start with a leading period:"},
       {"name": ".support [topic]", "value": "Show a support topic. If you don't know what you're looking for, try asking me a question first."},
-      {"name": ".support list", "value": "List all support topics."},
+      // {"name": ".support list", "value": "List all support topics."},
       {"name": ".store [search term]", "value": "I'll search the store with your term and return the top result."},
       {"name": ".app [search term], .face [search term]", "value": "The same as .store, but filtered to apps or faces only."},
       {"name": ".help", "value":"Show this message"},
@@ -544,6 +544,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     } else if (cmd == "support") {
       var s = support.showTopic(args.join(" "));
+      if (s.file) {
+        console.log("Support topic has a file!: " + s.file)
+        botReply("file~files/" + s.file, channelID, userID);
+        s.file = null
+      }
       botReply(s.msg, channelID, userID, s.embed);
 
     } else if (cmd == "ignore") {
@@ -588,7 +593,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // Admin commands
-  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm|toggleMute|muteState.*/.test(message)) {
+  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm|say|toggleMute|muteState.*/.test(message)) {
     if (! userauth.hasPermission(roles, "useAdminCommands")) {
       botReply("You do not have permission to do that", channelID, userID)
       return
@@ -660,8 +665,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     } else if (cmd == "save") {
       save();
       botReply("It is now safe to turn off your computer", channelID, userID);
+    } else if (cmd == "say") {
+      var channel = args[0]
+      args.splice(0,1);
+      botReply(args.join(" "), channel, bot.id)
     } else if (cmd == "help") {
-      botReply("Adminstrator Commands:\n$off - Suspend Anne\n$on - Reanimate Anne\n$joined @user - Show the server join date for user\n$forcedm @user - Toggle forceDM mode for @user. If enabled bot will only DM @user in response to messages\n$save - Save brain to disk\n$help - Show this dialogue", channelID, userID);
+      botReply('Adminstrator Commands:\n\
+      $off - Suspend Anne\n\
+      $on - Reanimate Anne\n\
+      $joined @user - Show the server join date for user\n\
+      $forcedm @user - Toggle forceDM mode for @user. If enabled bot will only DM @user in response to messages\n\
+      $say <channelID> <msg> - Puppeteer Anne\n\
+      $toggleMute <userID> - Toggle muting a userID\n\
+      $muteState <userID> - Get the muted state for a userID\n\
+      $save - Save brain to disk\n\
+      $help - Show this dialogue', channelID, userID);
     }
   }
 
@@ -679,6 +697,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   if (message.substr(0,1) == "?" && message.replace(/[\?\ ]/g,"").length > 1) {
 
     var supportResponse = support.handleNLQuery(message)
+    if (supportResponse.file) {
+      console.log("Support topic has a file!: " + supportResponse.file)
+      botReply("file~files/" + supportResponse.file, channelID, userID);
+      supportResponse.file = null
+    }
     botReply(supportResponse.msg, channelID, userID, supportResponse.embed);
     recordSeenUser(userID);
     return
@@ -712,7 +735,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   if (errorCodeFix != null) {
     botReply(" ", channelID, userID, errorCodeFix)
   }
-
 
   //Fun
   var binary = RegExp('^[01 ]+$')

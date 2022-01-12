@@ -382,14 +382,15 @@
     "keywords": [
       ["submit", "app"],
       ["publish"],
-      ["app", "store"]
+      ["app", "store"],
+      ["dev","portal"],
+      ["portal"]
     ],
     "title": "Developer Portal",
-    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
     "description": "You want to submit an app to the Rebble appstore",
-    "fixurl": "https://rebble.io/submit",
-    "customicon": "https://willow.systems/pebble/bot/sdk.png",
-    "helplink": "https://help.rebble.io/appstore-submission"
+    "fixurl": "https://dev-portal.rebble.io",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png"
   },
   {
     "supportcodes": [
@@ -404,7 +405,7 @@
     "title": "Android App Download",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "The Android app is no longer available on the Google Play Store. You can still sideload it.",
-    "fix": "Download the APK from https://www.apkmirror.com/apk/pebble-technology-corp/pebble/pebble-4-4-2-1405-62d45d7d7-endframe-release/pebble-4-4-2-1405-62d45d7d7-endframe-android-apk-download/download/",
+    "fix": "Download the APK from https://rebble.io/apk",
     "customicon": "https://willow.systems/pebble/bot/phone.png",
     "customfields": [
       {"name": "How to sideload an APK on Android:", "value": "See https://www.androidcentral.com/unknown-sources"}
@@ -429,7 +430,8 @@
   },
   {
     "supportcodes": [
-      "iosapp"
+      "iosapp",
+      "ios"
     ],
     "keywords": [
       ["ios", "install"],
@@ -438,7 +440,7 @@
     "summary": "downloading the ios app",
     "title": "iOS App Download",
     "lastupdated": "2020-09-16T13:40:19.402Z",
-    "description": "The iOS app is still available on the appstore, so there's no problem there. Yet.",
+    "description": "The iOS app was removed from the Appstore in 2021. For instructions on how to potentially get around this issue, see here: https://gist.github.com/robonxt/fe91254c8070cfe84c6add1dcc0ead88",
     "fix": "N/A",
     "customicon": "https://willow.systems/pebble/bot/phone.png"
   },
@@ -520,5 +522,42 @@
     "description": "During the SDK install process, you get an error because of the flag `--no-site-packages`",
     "fix": "Repeat the failed command, but omit the --no-site-packages flag. It's deprecated so you don't actually need it.",
     "customicon": "https://willow.systems/pebble/bot/sdk.png"
+  },
+  {
+    "supportcodes": [
+      "japanese",
+      "jpen",
+      "enjp"
+    ],
+    "keywords": [
+      ["japanese", "english"],
+      ["jp", "en"]
+    ],
+    "summary": "en-jp language pack",
+    "title": "English+Japanese language pack",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
+    "description": "You're looking for a Japaense+English language pack",
+    "fix": "Install this language pack. Download the file and open with the Pebble app. If you're on android and don't get that option, msg me .support charon",
+    "file": "en-jp.pbl",
+    "customicon": "https://willow.systems/pebble/bot/lang.png"
+  },
+  {
+    "supportcodes": [
+      "jpfr",
+      "frjp"
+    ],
+    "keywords": [
+      ["japanese", "french"],
+      ["japonaise", "française"],
+      ["japon", "francaise"],
+      ["jp", "fr"]
+    ],
+    "summary": "fr-jp language pack",
+    "title": "French+Japanese language pack",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
+    "description": "You're looking for a Japaense+French language pack",
+    "fix": "Install this language pack. Download the file and open with the Pebble app. If you're on android and don't get that option, msg me .support charon",
+    "file": "fr-jp.pbl",
+    "customicon": "https://willow.systems/pebble/bot/lang.png"
   }
 ]
