@@ -429,7 +429,8 @@
   },
   {
     "supportcodes": [
-      "iosapp"
+      "iosapp",
+      "ios"
     ],
     "keywords": [
       ["ios", "install"],
@@ -438,7 +439,7 @@
     "summary": "downloading the ios app",
     "title": "iOS App Download",
     "lastupdated": "2020-09-16T13:40:19.402Z",
-    "description": "The iOS app is still available on the appstore, so there's no problem there. Yet.",
+    "description": "The iOS app was removed from the Appstore in 2021. For instructions on how to potentially get around this issue, see here: https://gist.github.com/robonxt/fe91254c8070cfe84c6add1dcc0ead88",
     "fix": "N/A",
     "customicon": "https://willow.systems/pebble/bot/phone.png"
   },
