@@ -385,11 +385,10 @@
       ["app", "store"]
     ],
     "title": "Developer Portal",
-    "lastupdated": "2020-09-16T13:40:19.402Z",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
     "description": "You want to submit an app to the Rebble appstore",
-    "fixurl": "https://rebble.io/submit",
+    "fixurl": "https://dev-portal.rebble.io",
     "customicon": "https://willow.systems/pebble/bot/sdk.png",
-    "helplink": "https://help.rebble.io/appstore-submission"
   },
   {
     "supportcodes": [
