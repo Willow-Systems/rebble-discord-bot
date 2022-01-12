@@ -388,7 +388,7 @@
     "lastupdated": "2022-01-12T13:40:19.402Z",
     "description": "You want to submit an app to the Rebble appstore",
     "fixurl": "https://dev-portal.rebble.io",
-    "customicon": "https://willow.systems/pebble/bot/sdk.png",
+    "customicon": "https://willow.systems/pebble/bot/sdk.png"
   },
   {
     "supportcodes": [
@@ -520,5 +520,42 @@
     "description": "During the SDK install process, you get an error because of the flag `--no-site-packages`",
     "fix": "Repeat the failed command, but omit the --no-site-packages flag. It's deprecated so you don't actually need it.",
     "customicon": "https://willow.systems/pebble/bot/sdk.png"
+  },
+  {
+    "supportcodes": [
+      "japanese",
+      "jpen",
+      "enjp"
+    ],
+    "keywords": [
+      ["japanese", "english"],
+      ["jp", "en"]
+    ],
+    "summary": "en-jp language pack",
+    "title": "English+Japanese language pack",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
+    "description": "You're looking for a Japaense+English language pack",
+    "fix": "Install this language pack. Download the file and open with the Pebble app. If you're on android and don't get that option, msg me .support charon",
+    "file": "en-jp.pbl",
+    "customicon": "https://willow.systems/pebble/bot/lang.png"
+  },
+  {
+    "supportcodes": [
+      "jpfr",
+      "frjp"
+    ],
+    "keywords": [
+      ["japanese", "french"],
+      ["japonaise", "française"],
+      ["japon", "francaise"],
+      ["jp", "fr"]
+    ],
+    "summary": "fr-jp language pack",
+    "title": "French+Japanese language pack",
+    "lastupdated": "2022-01-12T13:40:19.402Z",
+    "description": "You're looking for a Japaense+French language pack",
+    "fix": "Install this language pack. Download the file and open with the Pebble app. If you're on android and don't get that option, msg me .support charon",
+    "file": "fr-jp.pbl",
+    "customicon": "https://willow.systems/pebble/bot/lang.png"
   }
 ]

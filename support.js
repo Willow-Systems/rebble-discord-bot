@@ -82,6 +82,10 @@ function handle(supportQuery) {
 
       if (sup.url != null && sup.url != "") { response.embed.url = sup.url }
 
+      if (sup.file != null) {
+        response.file = sup.file
+      }
+
       break
     }
   }
