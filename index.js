@@ -94,7 +94,7 @@ function generateHelpEmbed() {
       {"name": "Appstore Embed", value: "If you paste a Pebble store link (and nothing else), I'll pull some of the info"},
       {"name": "Other Commands", value: "I also have a few commands that are useful. These start with a leading period:"},
       {"name": ".support [topic]", "value": "Show a support topic. If you don't know what you're looking for, try asking me a question first."},
-      {"name": ".support list", "value": "List all support topics."},
+      // {"name": ".support list", "value": "List all support topics."},
       {"name": ".store [search term]", "value": "I'll search the store with your term and return the top result."},
       {"name": ".app [search term], .face [search term]", "value": "The same as .store, but filtered to apps or faces only."},
       {"name": ".help", "value":"Show this message"},
@@ -712,7 +712,6 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   if (errorCodeFix != null) {
     botReply(" ", channelID, userID, errorCodeFix)
   }
-
 
   //Fun
   var binary = RegExp('^[01 ]+$')

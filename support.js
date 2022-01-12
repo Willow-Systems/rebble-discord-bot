@@ -37,12 +37,13 @@ function handle(supportQuery) {
 
   //Special case
   if (supportQuery == "list") {
-    var response = "Currently I can help with the following issues: \n"
-    supportMap.forEach(sup => {
-      response = response + "`.support " + sup.supportcodes[0] + "`\n"
-    });
-    response += "The ability to automatically contribute to this list is coming soon. In the meantime email `mail@willow.systems` if you think something's missing."
-    response = { msg: response }
+    // var response = "Currently I can help with the following issues: \n"
+    // supportMap.forEach(sup => {
+    //   response = response + "`.support " + sup.supportcodes[0] + "`\n"
+    // });
+    // response += "The ability to automatically contribute to this list is coming soon. In the meantime email `mail@willow.systems` if you think something's missing."
+    // response = { msg: response }
+    var response = "To search for a topic, ask me a question or give me a prompt, starting with a ?\n For example:\n? Android app\n\nIf you'd rather, check out help.rebble.io instead."
     return response
   }
 
@@ -86,7 +87,7 @@ function handle(supportQuery) {
   }
 
   if (response == null) {
-    return {msg: "Sorry, I don't recognise that topic. Use `.support list` to see every support topic I can currently assist with."}
+    return {msg: "Sorry, I don't recognise that topic. Search for topics by starting your message with a question mark. E.g. `? developer portal`."}
   } else {
     return response
   }
