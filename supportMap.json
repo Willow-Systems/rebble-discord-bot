@@ -403,7 +403,7 @@
     "title": "Android App Download",
     "lastupdated": "2020-09-16T13:40:19.402Z",
     "description": "The Android app is no longer available on the Google Play Store. You can still sideload it.",
-    "fix": "Download the APK from https://www.apkmirror.com/apk/pebble-technology-corp/pebble/pebble-4-4-2-1405-62d45d7d7-endframe-release/pebble-4-4-2-1405-62d45d7d7-endframe-android-apk-download/download/",
+    "fix": "Download the APK from https://rebble.io/apk",
     "customicon": "https://willow.systems/pebble/bot/phone.png",
     "customfields": [
       {"name": "How to sideload an APK on Android:", "value": "See https://www.androidcentral.com/unknown-sources"}
