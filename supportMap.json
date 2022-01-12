@@ -382,7 +382,9 @@
     "keywords": [
       ["submit", "app"],
       ["publish"],
-      ["app", "store"]
+      ["app", "store"],
+      ["dev","portal"],
+      ["portal"]
     ],
     "title": "Developer Portal",
     "lastupdated": "2022-01-12T13:40:19.402Z",
