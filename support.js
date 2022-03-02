@@ -32,7 +32,7 @@ var noClueFollowUps = [
 ]
 
 function handle(supportQuery) {
-  supportQuery = supportQuery.replace(/ /g, "").replace(/-/g,"");
+  supportQuery = supportQuery.toLowerCase().replace(/ /g, "").replace(/-/g,"");
   var response = null
 
   //Special case
