@@ -503,18 +503,18 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   });
 
   //Wolfram
-  var mytag = "<@" + bot.id + ">"
-  var msg = message.replace("<@!", "<@");
-  if (msg.substring(0, mytag.length) == mytag) {
-    if (userauth.hasPermission(roles, "useAdminCommands")) {
+  // var mytag = "<@" + bot.id + ">"
+  // var msg = message.replace("<@!", "<@");
+  // if (msg.substring(0, mytag.length) == mytag) {
+  //   if (userauth.hasPermission(roles, "useAdminCommands")) {
 
-      msg = msg.replace(mytag, "");
-      ai.answer(msg, function(response) {
-          botReply(response, channelID, userID)
-      })
+  //     msg = msg.replace(mytag, "");
+  //     ai.answer(msg, function(response) {
+  //         botReply(response, channelID, userID)
+  //     })
 
-    }
-  }
+  //   }
+  // }
 
 
   // Commands
@@ -694,7 +694,21 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   //help keyword detection
+  var is_keyword_search = false
+  var mytag = "<@" + bot.id + ">"
+  var msg = message.replace("<@!", "<@");
+  //Match on @Anne Droid <question>
+  if (msg.substring(0, mytag.length) == mytag) {
+    message = message.replace(mytag, "");
+    message = message.replace(/[<>@!]/g,"");
+    is_keyword_search = true
+  }
+  //Legacy ? <question>
   if (message.substr(0,1) == "?" && message.replace(/[\?\ ]/g,"").length > 1) {
+    is_keyword_search = true
+  }
+
+  if (is_keyword_search) {
 
     var supportResponse = support.handleNLQuery(message)
     if (supportResponse.file) {
