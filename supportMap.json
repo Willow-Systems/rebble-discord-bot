@@ -394,6 +394,21 @@
   },
   {
     "supportcodes": [
+      "restrictedsettings",
+      "restricted"
+    ],
+    "keywords": [
+      ["restricted", "settings"],
+      ["restricted"]
+    ],
+    "title": "Restricted settings",
+    "lastupdated": "2023-01-03T13:40:19.402Z",
+    "description": "You run into an error enabling notifications on Android 13+.",
+    "fixurl": "https://help.rebble.io/android-restricted-settings",
+    "customicon": "https://willow.systems/pebble/bot/phone.png"
+  },
+  {
+    "supportcodes": [
       "android",
       "androidapp"
     ],
