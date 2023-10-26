@@ -1,28 +1,51 @@
 {
   "trustedServers": [
-    {"id": "689190993366483069", "name": "Pub Club", "safename": "pubclub"},
-    {"id": "221364737269694464", "name": "The Rebble Alliance", "safename": "rebble"}
+    {
+      "id": "689190993366483069",
+      "name": "Pub Club",
+      "safename": "pubclub"
+    },
+    {
+      "id": "221364737269694464",
+      "name": "The Rebble Alliance",
+      "safename": "rebble"
+    },
+    {
+      "id": "1166825968762097734",
+      "name": "Random test server",
+      "safename": "test"
+    }
   ],
   "proactiveHelperChannels": {
     "pubclub": ["689195515983822900"],
-    "rebble": ["461686541027377152"]
+    "rebble": ["461686541027377152"],
+    "test": ["1166826881434267722"]
   },
   "moderationReportChannel": {
     "pubclub": ["689195515983822900"],
-    "rebble": ["726214475371380756"]
+    "rebble": ["726214475371380756"],
+    "test": ["1166826974929485844"]
+  },
+  "spamtrapChannel": {
+    "pubclub": ["0"],
+    "rebble": ["0"],
+    "test": ["1166826249730142278"]
   },
   "authorisationRoles": {
     "useAdminCommands": {
       "pubclub": ["689193020394176553"],
-      "rebble": ["287154396721315852","717614764574113882"]
+      "rebble": ["287154396721315852", "717614764574113882"],
+      "test": ["1166827149165084813"]
     },
     "switchOff": {
       "pubclub": ["689193020394176553"],
-      "rebble": ["287154396721315852"]
+      "rebble": ["287154396721315852"],
+      "test": ["1166827149165084813"]
     },
     "useIntrospection": {
       "pubclub": ["689193020394176553"],
-      "rebble": ["287154396721315852", "717614764574113882"]
+      "rebble": ["287154396721315852", "717614764574113882"],
+      "test": ["1166827149165084813"]
     }
   },
   "timeouts": {
