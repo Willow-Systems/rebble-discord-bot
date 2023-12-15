@@ -1,6 +1,29 @@
 [
   {
     "supportcodes": [
+      "adb",
+      "a14",
+      "14",
+      "android14"
+    ],
+    "keywords": [
+      ["android", "14"],
+      ["cant", "install"],
+      ["can't", "install"],
+      ["app", "be","installed"],
+      ["adb"]
+    ],
+    "summary": "Android 14 blocks APK installation",
+    "title": "Android 14+ blocks APK",
+    "subtitle": "",
+    "lastupdated": "2023-12-15T13:40:19.402Z",
+    "description": "Android 14 or later blocks the Pebble APK from installing due to age.",
+    "fix": "You can install via ADB using the command `adb install --bypass-low-target-sdk-block pebbleapp.apk`. View the help center for full instructions.",
+    "customicon": "https://willow.systems/pebble/bot/phone.png",
+    "helplink": "https://help.rebble.io/apk-load-android"
+  },
+  {
+    "supportcodes": [
       "lockersync",
       "lockerdesync"
     ],
