@@ -10,6 +10,7 @@ var userauth = require("./roles.js");
 const appstore = require("./appsearch.js");
 const config = require("./config.json");
 const ai = require("./ai.js");
+const request = require('request');
 
 //Automatically start bot on launch (true normally, false for debug)
 var autoStartBot = true;
@@ -30,10 +31,10 @@ settings = {
 
 // Utility functions
 utils = {
-  dayOfWeek: function() {
+  dayOfWeek: function () {
     return new Date().getDay();
   },
-  day: function() {
+  day: function () {
     var d = new Date().getDay();
     return env.days[d];
   },
@@ -62,7 +63,7 @@ function validateConfig() {
 
 }
 function getRndInteger(min, max) {
-  return Math.floor(Math.random() * (max - min) ) + min;
+  return Math.floor(Math.random() * (max - min)) + min;
 }
 function userTagToID(tag) {
   //E.g. <@!316611120519577602>
@@ -88,17 +89,17 @@ function generateHelpEmbed() {
     title: "Hi, I'm Anne",
     description: "I do a few things round here to help out. Perhaps the most useful is answer your questions. Start the question with a question mark (mad, I know) and I'll do my best to answer it.",
     fields: [
-      {"name": "Asking me a question", value: "Start a question with a question mark, and I'll try to find support for your issue. For example: `? Where can I find the android app?`"},
-      {"name": "Pebble Images", value: "If you write a message with a Pebble resource in it (i.e. `system://images/emoji_11`), I'll post that image. For a list of all available, see https://willow.systems/pebble/bot/images/"},
-      {"name": "Error codes", value: "If you write a message with a Pebble error code in it (i.e. `FE504504`), I'll explain how to fix it."},
-      {"name": "Appstore Embed", value: "If you paste a Pebble store link (and nothing else), I'll pull some of the info"},
-      {"name": "Other Commands", value: "I also have a few commands that are useful. These start with a leading period:"},
-      {"name": ".support [topic]", "value": "Show a support topic. If you don't know what you're looking for, try asking me a question first."},
+      { "name": "Asking me a question", value: "Start a question with a question mark, and I'll try to find support for your issue. For example: `? Where can I find the android app?`" },
+      { "name": "Pebble Images", value: "If you write a message with a Pebble resource in it (i.e. `system://images/emoji_11`), I'll post that image. For a list of all available, see https://willow.systems/pebble/bot/images/" },
+      { "name": "Error codes", value: "If you write a message with a Pebble error code in it (i.e. `FE504504`), I'll explain how to fix it." },
+      { "name": "Appstore Embed", value: "If you paste a Pebble store link (and nothing else), I'll pull some of the info" },
+      { "name": "Other Commands", value: "I also have a few commands that are useful. These start with a leading period:" },
+      { "name": ".support [topic]", "value": "Show a support topic. If you don't know what you're looking for, try asking me a question first." },
       // {"name": ".support list", "value": "List all support topics."},
-      {"name": ".store [search term]", "value": "I'll search the store with your term and return the top result."},
-      {"name": ".app [search term], .face [search term]", "value": "The same as .store, but filtered to apps or faces only."},
-      {"name": ".help", "value":"Show this message"},
-      {"name": ".ignore", "value":"Toggle whether I should ignore you or not"}
+      { "name": ".store [search term]", "value": "I'll search the store with your term and return the top result." },
+      { "name": ".app [search term], .face [search term]", "value": "The same as .store, but filtered to apps or faces only." },
+      { "name": ".help", "value": "Show this message" },
+      { "name": ".ignore", "value": "Toggle whether I should ignore you or not" }
     ]
   }
   return e
@@ -109,8 +110,8 @@ function loadSaveData() {
     var data = fs.readFileSync(__dirname + "/brain.json");
     data = JSON.parse(data);
     if (data.usersICareAbout == null) { data.usersICareAbout = {} }
-    if (data.seenusers == null) { data.seenusers = []}
-    if (data.mutedUsers == null) { data.mutedUsers = []}
+    if (data.seenusers == null) { data.seenusers = [] }
+    if (data.mutedUsers == null) { data.mutedUsers = [] }
     settings = data
   } catch (e) {
     console.log("Failed to start: " + e)
@@ -118,7 +119,7 @@ function loadSaveData() {
   }
 }
 function save() {
-  fs.writeFile(__dirname + "/brain.json", JSON.stringify(settings), "UTF-8", function() {
+  fs.writeFile(__dirname + "/brain.json", JSON.stringify(settings), "UTF-8", function () {
     //debugLog("Settings persisted to disk.");
   });
 }
@@ -175,7 +176,7 @@ function toggleIgnore(userID, channelID) {
 
   } else {
 
-    if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+    if (!settings.usersICareAbout.hasOwnProperty(userID)) {
       settings.usersICareAbout[userID] = {};
     }
     settings.usersICareAbout[userID].ignore = true
@@ -203,7 +204,7 @@ function toggleForceDM(userID, adminID) {
 
   } else {
 
-    if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+    if (!settings.usersICareAbout.hasOwnProperty(userID)) {
       settings.usersICareAbout[userID] = {};
     }
     settings.usersICareAbout[userID].forcedm = true
@@ -234,9 +235,9 @@ function setUserMute(userID, endDate) {
     //Remove role
     removeUserFromRole(userID, config.rateLimit.timeoutRoleID[userauth.getTrustedServerName()])
 
-    for (var i=0;i<settings.mutedUsers.length;i++) {
+    for (var i = 0; i < settings.mutedUsers.length; i++) {
       if (settings.mutedUsers[i].id == userID) {
-        settings.mutedUsers.splice(i,1);
+        settings.mutedUsers.splice(i, 1);
       }
     }
 
@@ -251,13 +252,13 @@ function setUserMute(userID, endDate) {
 
   }
 
-  if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+  if (!settings.usersICareAbout.hasOwnProperty(userID)) {
     settings.usersICareAbout[userID] = {};
   }
   settings.usersICareAbout[userID].muteUntil = endDate.getTime()
 }
 function unmuteExpiredMutes() {
-  for (var i=0;i<settings.mutedUsers.length;i++) {
+  for (var i = 0; i < settings.mutedUsers.length; i++) {
     var then = new Date(settings.mutedUsers[i].end).getTime()
     var now = new Date().getTime()
     if (then < now) {
@@ -266,10 +267,10 @@ function unmuteExpiredMutes() {
   }
 }
 function logMutedUserMessageDeleted(userID) {
-  if (! settings.usersICareAbout.hasOwnProperty(userID)) {
+  if (!settings.usersICareAbout.hasOwnProperty(userID)) {
     settings.usersICareAbout[userID] = {}
   }
-  if (! settings.usersICareAbout.hasOwnProperty("mutedMsgCount")) {
+  if (!settings.usersICareAbout.hasOwnProperty("mutedMsgCount")) {
     settings.usersICareAbout.mutedMsgCount = 0
   }
   settings.usersICareAbout.mutedMsgCount++
@@ -277,7 +278,7 @@ function logMutedUserMessageDeleted(userID) {
 function deleteMessage(cid, mid, callback) {
   console.log("Channel: " + cid.toString())
   console.log("Message: " + mid.toString())
-  bot.deleteMessage({channelID: cid.toString(), messageID: mid.toString()}, function(error) {
+  bot.deleteMessage({ channelID: cid.toString(), messageID: mid.toString() }, function (error) {
     if (error != null) {
       console.log("Error deleting a message")
       console.log(error)
@@ -290,8 +291,8 @@ function deleteMessage(cid, mid, callback) {
 
 function recordSeenUser(userID) {
   userID = userTagToID(userID)
-  if (! settings.seenusers.includes(userID)) {
-	  settings.seenusers.push(userID)
+  if (!settings.seenusers.includes(userID)) {
+    settings.seenusers.push(userID)
   }
 }
 function haveISeenUserBefore(userID) {
@@ -314,22 +315,22 @@ function addUserToRole(userID, roleID) {
     serverID: settings.serverID,
     userID: userID,
     roleID: roleID
-}, (error, response) => {
+  }, (error, response) => {
     if (error != null) {
-        console.log("Add role error: " + JSON.stringify(error))
+      console.log("Add role error: " + JSON.stringify(error))
     }
-})
+  })
 }
 function removeUserFromRole(userID, roleID) {
   bot.removeFromRole({
     serverID: settings.serverID,
     userID: userID,
     roleID: roleID
-}, (error, response) => {
+  }, (error, response) => {
     if (error != null) {
-        console.log("Add role error: " + JSON.stringify(error))
+      console.log("Add role error: " + JSON.stringify(error))
     }
-})
+  })
 }
 
 //Load data from FILE
@@ -343,8 +344,8 @@ validateConfig();
 
 //Bot functions. Magic happens in bot.on('message')
 bot = new Discord.Client({
-   token: auth.token,
-   autorun: autoStartBot
+  token: auth.token,
+  autorun: autoStartBot
 });
 function botReply(msg, channelID, userID, msgEmbed) {
   if (msg == null || msg == "") { return }
@@ -358,69 +359,69 @@ function botReply(msg, channelID, userID, msgEmbed) {
     if (msg[0] == "file") {
       console.log("SEND FILE")
       bot.uploadFile({
-             to: channelID,
-             file: msg[1]
-         });
+        to: channelID,
+        file: msg[1]
+      });
     }
 
   } else {
 
-      if (msg.length > 1999) {
-        //Msg is too long, cut to truncate
-        msg = msg.substring(0, 1995);
-        //Now we need to cut off the last word, so we don't send a malformed emoji
-        var split = (msg.includes(" ")) ? "\ " : "\<";
-        msg = msg.substring(0, msg.lastIndexOf(split)) + "..."
-      }
-
-      if (msgEmbed != null) {
-        bot.sendMessage({ to: channelID, message: msg, embed: msgEmbed});
-      } else {
-        bot.sendMessage({ to: channelID, message: msg });
-      }
+    if (msg.length > 1999) {
+      //Msg is too long, cut to truncate
+      msg = msg.substring(0, 1995);
+      //Now we need to cut off the last word, so we don't send a malformed emoji
+      var split = (msg.includes(" ")) ? "\ " : "\<";
+      msg = msg.substring(0, msg.lastIndexOf(split)) + "..."
     }
+
+    if (msgEmbed != null) {
+      bot.sendMessage({ to: channelID, message: msg, embed: msgEmbed });
+    } else {
+      bot.sendMessage({ to: channelID, message: msg });
+    }
+  }
 }
 bot.on('ready', function (evt) {
-    //Get the first server address. This bot is not designed to service multiple servers on the same runtime (though it probably could)
-    try {
-      var serverID = evt.d.guilds[0].id
-      settings.serverID = serverID
-    } catch (e) {
-      console.log("Failed to get server ID: " + e);
-      var serverID = "Unknown"
-    }
+  //Get the first server address. This bot is not designed to service multiple servers on the same runtime (though it probably could)
+  try {
+    var serverID = evt.d.guilds[0].id
+    settings.serverID = serverID
+  } catch (e) {
+    console.log("Failed to get server ID: " + e);
+    var serverID = "Unknown"
+  }
 
-    console.log('Connected to discord. Server ID: ' + serverID);
-    console.log('Authenticated as: ' + bot.username + ' - (' + bot.id + ')');
+  console.log('Connected to discord. Server ID: ' + serverID);
+  console.log('Authenticated as: ' + bot.username + ' - (' + bot.id + ')');
 
-    if (resolveServerIDToTrustedServer(serverID) != null) {
-      console.log("Server recognised as " + resolveServerIDToTrustedServer(serverID))
-    } else {
-      console.log("Warning: Server is not recognised. Connected to unknown server. Authentication roles and commanded dependant on them are not available.")
-    }
+  if (resolveServerIDToTrustedServer(serverID) != null) {
+    console.log("Server recognised as " + resolveServerIDToTrustedServer(serverID))
+  } else {
+    console.log("Warning: Server is not recognised. Connected to unknown server. Authentication roles and commanded dependant on them are not available.")
+  }
 
 
-    settings.mytag = "<@" + bot.id + ">"
-    //Load permission info for this server from config.json
-    userauth.readConfig(serverID, config)
-    //Map the current server roles to IDs
-    userauth.setupRoles(bot.servers[serverID]);
+  settings.mytag = "<@" + bot.id + ">"
+  //Load permission info for this server from config.json
+  userauth.readConfig(serverID, config)
+  //Map the current server roles to IDs
+  userauth.setupRoles(bot.servers[serverID]);
 
-    //Save once every 15 mins
-    setInterval(save, 900000);
+  //Save once every 15 mins
+  setInterval(save, 900000);
 
-    //Check for users to unmute once a minute
-    setInterval(unmuteExpiredMutes, 60000)
+  //Check for users to unmute once a minute
+  setInterval(unmuteExpiredMutes, 60000)
 
-    //Setup wolfram
-    ai.init(auth.wolfram)
+  //Setup wolfram
+  ai.init(auth.wolfram)
 
-    console.log("Initalisation complete. Ready to serve " + resolveServerIDToTrustedServer(serverID) + "!")
+  console.log("Initalisation complete. Ready to serve " + resolveServerIDToTrustedServer(serverID) + "!")
 });
-bot.on('disconnect', function(errMsg, code) {
-    console.log('Disconnected from discord [' + code + ']. Reason: ' + errMsg);
-    console.log('Reconnecting');
-    bot.connect();
+bot.on('disconnect', function (errMsg, code) {
+  console.log('Disconnected from discord [' + code + ']. Reason: ' + errMsg);
+  console.log('Reconnecting');
+  bot.connect();
 });
 bot.on('message', function (user, userID, channelID, message, evt) {
 
@@ -431,7 +432,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   //Check we've not been disabled
-  if (disabled && ! message.includes("$on")) {
+  if (disabled && !message.includes("$on")) {
     return
   }
 
@@ -447,14 +448,14 @@ bot.on('message', function (user, userID, channelID, message, evt) {
     }
 
     //Store info for $joined
-    if (! settings.usersICareAbout.hasOwnProperty(userID)) { settings.usersICareAbout[userID] = {} }
-    settings.usersICareAbout[userID].joined  = (evt.d.member.hasOwnProperty("joined_at")) ? evt.d.member.joined_at : "Unknown"
+    if (!settings.usersICareAbout.hasOwnProperty(userID)) { settings.usersICareAbout[userID] = {} }
+    settings.usersICareAbout[userID].joined = (evt.d.member.hasOwnProperty("joined_at")) ? evt.d.member.joined_at : "Unknown"
 
     //Store some basic metadata for fun
     //Inc messagecount
     settings.usersICareAbout[userID].msgcount = (settings.usersICareAbout[userID].hasOwnProperty("msgcount")) ? settings.usersICareAbout[userID].msgcount + 1 : 1;
 
-    if (! settings.usersICareAbout[userID].hasOwnProperty("wordcount")) {
+    if (!settings.usersICareAbout[userID].hasOwnProperty("wordcount")) {
       settings.usersICareAbout[userID].wordcount = {
         pebble: 0,
         yes: 0,
@@ -476,9 +477,9 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   //Remove punctuation we don't care about
-  message = message.replace(/[\(\)\[\]\{\}\!]/g,"");
+  message = message.replace(/[\(\)\[\]\{\}\!]/g, "");
 
-  appstore.detectAutoEmbed(message, function(res) {
+  appstore.detectAutoEmbed(message, function (res) {
     if (res.s) {
       botReply(" ", channelID, userID, {
         color: parseInt(res.category_color, 16),
@@ -489,10 +490,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         },
         title: res.title,
         fields: [
-          {name: "Category", value: res.category},
-          {name: "Description", value: res.description},
-          {name: "Author", value: res.author},
-          {name: "Hearts", value: res.hearts}
+          { name: "Category", value: res.category },
+          { name: "Description", value: res.description },
+          { name: "Author", value: res.author },
+          { name: "Hearts", value: res.hearts }
         ],
         footer: {
           "text": "(Click the title to go to the store page)"
@@ -516,15 +517,30 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   //   }
   // }
 
+  // Spamtrap
+  if (channelID == config.spamtrapChannel[userauth.getTrustedServerName()]) {
+    // If the user has any roles, they're probably not a spammer. Ignore them.
+    if (roles.length > 0) {
+      console.log("Ignoring message from user with roles: " + userID + " (" + roles.length + ")");
+    } else {
+      moderator.spamtrapTriggered(userID, message)
+      bot.ban({ serverID: settings.serverID, userID: userID, lastDays: 1 }, function (error) {
+        if (error != null) {
+          console.log("Error banning user: " + JSON.stringify(error))
+        }
+      })
+    }
+  }
+
 
   // Commands
-  if (message.substr(0,1) == ".") {
+  if (message.substr(0, 1) == ".") {
     var args = message.substr(1).split(' ');
     var cmd = args[0]
     args = args.splice(1);
 
 
-    // This is the core logic, where we manage commands
+    // This is the core logic, where we manage  
 
 
     if (cmd == "help") {
@@ -559,7 +575,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         face: "watchface",
         store: "watchface,watchapp"
       }[cmd]
-      appstore.search(args.join(" "), filter, function(res) {
+      appstore.search(args.join(" "), filter, function (res) {
 
         if (res.s) {
           botReply(" ", channelID, userID, {
@@ -571,10 +587,10 @@ bot.on('message', function (user, userID, channelID, message, evt) {
             },
             title: res.title,
             fields: [
-              {name: "Category", value: res.category},
-              {name: "Description", value: res.description},
-              {name: "Author", value: res.author},
-              {name: "Hearts", value: res.hearts},
+              { name: "Category", value: res.category },
+              { name: "Description", value: res.description },
+              { name: "Author", value: res.author },
+              { name: "Hearts", value: res.hearts },
             ],
             footer: {
               "text": "(Click the title to go to the store page)"
@@ -584,7 +600,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         } else {
           botReply("No results", channelID, userID);
         }
-      }, function() {
+      }, function () {
         botReply("Something went wrong", channelID, userID);
       });
     }
@@ -593,8 +609,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   // Admin commands
-  if (message.substr(0,1) == "$" && /on|off|help|save|joined|forcedm|say|toggleMute|muteState.*/.test(message)) {
-    if (! userauth.hasPermission(roles, "useAdminCommands")) {
+  if (message.substr(0, 1) == "$" && /on|off|help|save|joined|forcedm|say|toggleMute|muteState.*/.test(message)) {
+    if (!userauth.hasPermission(roles, "useAdminCommands")) {
       botReply("You do not have permission to do that", channelID, userID)
       return
     }
@@ -611,7 +627,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         botReply("You do not have permission to do that", channelID, userID)
         return
       }
-  } else if (cmd == "on") {
+    } else if (cmd == "on") {
       if (userauth.hasPermission(roles, "switchOff")) {
         disabled = false
         botReply("I'm awake!", channelID, userID);
@@ -667,7 +683,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
       botReply("It is now safe to turn off your computer", channelID, userID);
     } else if (cmd == "say") {
       var channel = args[0]
-      args.splice(0,1);
+      args.splice(0, 1);
       botReply(args.join(" "), channel, bot.id)
     } else if (cmd == "help") {
       botReply('Adminstrator Commands:\n\
@@ -684,12 +700,12 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   }
 
   //Remove . as it's not a command
-  message = message.replace(/\./g,"");
+  message = message.replace(/\./g, "");
 
   // Pebble image sending
   var img = pbimg.match(message)
   if (img != false) {
-    botReply(img,channelID, userID);
+    botReply(img, channelID, userID);
     return
   }
 
@@ -700,11 +716,11 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   //Match on @Anne Droid <question>
   if (msg.substring(0, mytag.length) == mytag) {
     message = message.replace(mytag, "");
-    message = message.replace(/[<>@!]/g,"");
+    message = message.replace(/[<>@!]/g, "");
     is_keyword_search = true
   }
   //Legacy ? <question>
-  if (message.substr(0,1) == "?" && message.replace(/[\?\ ]/g,"").length > 1) {
+  if (message.substr(0, 1) == "?" && message.replace(/[\?\ ]/g, "").length > 1) {
     is_keyword_search = true
   }
 
@@ -724,7 +740,7 @@ bot.on('message', function (user, userID, channelID, message, evt) {
 
     //Proactive help
     //This is where if we see a new user ask a question in #rebble-help, we introduce outselves
-    if (userauth.getProactiveChannels(config).includes(channelID.toString()) && ! haveISeenUserBefore(userID)) {
+    if (userauth.getProactiveChannels(config).includes(channelID.toString()) && !haveISeenUserBefore(userID)) {
       botReply(" ", userID, userID, {
         color: parseInt("ff4700", 16),
         thumbnail: {
@@ -735,8 +751,8 @@ bot.on('message', function (user, userID, channelID, message, evt) {
         title: "Hi, @" + user,
         description: "I've not seen you around here before, welcome to the Rebble Alliance discord server. Here are a few useful tips:",
         fields: [
-          {name: "Need help?", value: "If you have a question and nobody has answered yet, try asking me! **Start your question with a leading '?'** and I'll try to answer it. E.g. `? How do I setup rebble?`" },
-          {name: "Still confused?", value: "You can find a channel guide and role explanations in <#221397928592277504>, there are plenty of humans here who are super helpful." }
+          { name: "Need help?", value: "If you have a question and nobody has answered yet, try asking me! **Start your question with a leading '?'** and I'll try to answer it. E.g. `? How do I setup rebble?`" },
+          { name: "Still confused?", value: "You can find a channel guide and role explanations in <#221397928592277504>, there are plenty of humans here who are super helpful." }
         ],
       });
       recordSeenUser(userID);
@@ -759,17 +775,17 @@ bot.on('message', function (user, userID, channelID, message, evt) {
   recordSeenUser(userID);
 
 });
-bot.on('any', function(event) {
+bot.on('any', function (event) {
   //Catch special events
 
   //Eventually populate this from roles, but for now I cba
-  var protectedUsernames = ["katharineberry","bradtgmurray","kat","liammcloughlin","meiguro","orviwan","crc32","ishotjr","josuha","will","will0","tation","astosia","stefanogerli","tertty","annedroid","sphinxy","itsthered","itsthered1","udsx"];
+  var protectedUsernames = ["katharineberry", "bradtgmurray", "kat", "liammcloughlin", "meiguro", "orviwan", "crc32", "ishotjr", "josuha", "will", "will0", "tation", "astosia", "stefanogerli", "tertty", "annedroid", "sphinxy", "itsthered", "itsthered1", "udsx"];
 
 
   if (event.t == "GUILD_MEMBER_ADD") {
     //New user has joined the server
     var newuser = event.d.user.username;
-    newuser = newuser.toLowerCase().replace(/[!?.'")>\]]/g,"")
+    newuser = newuser.toLowerCase().replace(/[!?.'")>\]]/g, "")
     for (var i = 0; i < protectedUsernames.length; i++) {
       if (newuser == protectedUsernames[i]) {
         moderator.warnPotentialImpersonate(event.d.user.id)
